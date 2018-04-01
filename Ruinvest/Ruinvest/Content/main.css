@@ -1,0 +1,295 @@
+.body {
+    top: 0px;
+    background-color: rgb(22, 32, 55);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    color: #CFD0D1;
+}
+
+.body-background {
+    position: absolute;
+    overflow: auto;
+    top: 0px;
+    width: 100%;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    height: 100%;
+    background-image: url("../img/body-background.png")
+}
+
+body, html {
+    color: #20303c;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+    letter-spacing: .4px;
+    font-family: HelveticaNeueW01-45Ligh,Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    background-color: #f9fafa;
+}
+
+.site-root {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    position: relative;
+    margin: 0 auto;
+    width: 80%;
+}
+
+.logo {
+    display: flex;
+    align-content: center;
+    width: 410px;
+    height: 410px;
+    background-image: url(../img/logo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.hide {
+    display: none;
+}
+
+.label-company {
+    font: normal normal normal 81px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans-serif;
+    color: #CFD0D1;
+    height: 100px;
+    text-transform: uppercase;
+}
+
+.discription {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.discription-head {
+    border-bottom: 3px solid rgba(219, 83, 59, 1);
+    text-align: center;
+}
+
+.discription-head h3 {
+    color: #CFD0D1;
+    height: 40px;
+    font: normal normal normal 45px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans-serif;
+    margin-bottom: 5%;  
+    margin-top: 0px;
+}
+
+.user-panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1%;
+    width: 100%;
+    margin-bottom: 5%;
+    border-top: 3px solid rgba(219, 83, 59, 1);
+    padding-top: 2%;
+    text-transform: uppercase;
+}
+
+.user-reg, .user-login, .user-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.user-reg, .user-login {
+    width:  21%;
+}
+
+.user-reg {
+    margin-right: 10%;
+}
+
+.user-panel input[type='text'],
+.user-panel input[type='password'] {
+    background-color: transparent;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 5px;
+}
+
+.user-panel-head {
+    font-size: 20px;
+    margin-bottom: 3%;
+}
+
+.user-panel button {
+    width: 107%;
+    min-height: 31px;
+    border-radius: 5px;
+    color: rgb(22, 32, 55);
+    font: normal normal normal 19px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans-serif;
+}
+
+.steps {
+    display:  flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+    margin-top: 5%;
+    width: 100%;
+    font: 'kelly slab',fantasy;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    margin: 5px;
+    text-align: center;
+    min-width: 25%;
+}
+
+.steps img {
+    width: 100px;
+    margin-bottom: 15px;
+}
+
+.steps span {
+    max-width: 160px;
+    word-break: break-all'
+}
+
+.advantages {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    font: normal normal normal 20px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans-serif;
+    text-transform: uppercase;
+    margin-top: 5%;
+}
+
+.advantages li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5%;
+    font: normal normal normal 20px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans-serif;
+}
+
+.advantages-head {
+    margin-bottom: 5%;
+    font-size: 30px;
+}
+
+.advantages .glyphicon {
+    margin-right: 15px;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+    font: normal normal normal 18px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans;
+    bottom: 0;
+    position: absolute;
+}
+
+.discription-deposit {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+}
+
+.deposit {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    width: 20%;
+    height: 260px;
+    border: 3px solid white;
+    border-radius: 10px;
+    margin-left: 5%;
+    margin-top: 5%;
+    align-items: center;
+    flex-direction: column;
+    font: normal normal normal 65px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans-serif;
+}
+
+.deposit:hover {
+    -webkit-transform: scale(1.035);
+    -ms-transform: scale(1.035);
+    transform: scale(1.035);
+  }
+
+  .active-depost {
+    box-shadow: 0 0 60px rgba(230,230,230,0.6)
+  }
+
+  .my-money {
+      text-transform: uppercase;
+      font-size: 30px;
+      margin-top: 3%;
+  }
+
+  .label-deposit {
+    font: normal normal normal 70px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans-serif;
+    color: #CFD0D1;
+    height: 80px;
+    text-transform: uppercase;
+  }
+
+  .activate-deposit {
+      margin-top: 5%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+  }
+
+.input-append {
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    font: normal normal normal 16px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans;
+}
+
+  .input-append input {
+    height: 40px;
+    width: 55%;
+    padding: 10px;
+    border-radius: 10px;
+    padding-right: 20px;
+    border: solid 2px;
+    background-color: rgba(230,230,230,0)
+  }
+
+  .input-append button {
+    height: 40px;
+    width: 40%;
+    margin-left: -15px;
+    border: solid 2px;
+    border-color: #CFD0D1;
+    background-color: rgb(22, 32, 55);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-left: solid 1px;
+  }
+
+  .input-append input:focus,
+  .input-append button:focus {
+    outline: none !important;
+  }

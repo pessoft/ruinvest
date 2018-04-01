@@ -1,31 +1,117 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿<!doctype html>
+<html>
+<head>
+    <title>RUINVEST</title>
+    <meta charset="utf-8" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/scripts/jquery-1.10.2.js")
+    @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")
+    @Scripts.Render("~/bundles/jqueryval")
+    <link rel="shortcut icon" href="~/Image/title-ico.png" type="image/png">
+    <link href="~/Content/main.css" rel="stylesheet" />
+    <link href="~/Content/fm.revealator.jquery.css" rel="stylesheet" />
+    <script src="~/Scripts/main.js"></script>
+    <script src="~/Scripts/fm.revealator.jquery.js"></script>
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+</head>
+<body>
+    <div class="body">
+        <div class="body-background">
+            <div class="site-root">
+                <div class="label-company revealator-once revealator-slideup revealator-duration30 revealator-delay1 ">
+                    <div>
+                        <span>RUINVEST</span>
+                    </div>
+                </div>
+                <div class="logo revealator-once revealator-zoomin revealator-duration25 revealator-delay7">
+                </div>
+                <div class="discription revealator-once revealator-slidedown  revealator-duration15 revealator-delay15">
+                    <div class="discription-head ">
+                        <h3>МЫ РАБОТАЕМ</h3>
+                        <h3>ВЫ ЗАРАБАТЫВАЕТЕ!</h3>
+                    </div>
+                </div>
+                <div class="steps ">
+                    <div class="step revealator-once revealator-zoomin  revealator-duration12 revealator-delay3">
+                        <img src=""~/Image//reg.png">
+                        <span>регистрируйтесь</span>
+                    </div>
+                    <div class="step revealator-once revealator-zoomin  revealator-duration12 revealator-delay8">
+                        <img src=""~/Image//money.png">
+                        <span>пополните счёт</span>
+                    </div>
+                    <div class="step revealator-once revealator-zoomin  revealator-duration12 revealator-delay13">
+                        <img src=""~/Image//hourglass.png">
+                        <span>выберите срок инвестирования</span>
+                    </div>
+                    <div class="step revealator-once revealator-zoomin  revealator-duration12 revealator-delay18">
+                        <img src=""~/Image//creditcard.png">
+                        <span>выводите заработанные средства</span>
+                    </div>
+                </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+                <div class="advantages">
+                    <div class="advantages-head revealator-once revealator-slideright revealator-duration15 revealator-delay12">
+                        Преимущества работы с RUINVEST:
+                    </div>
+                    <ul>
+                        <li class="revealator-once revealator-slideright revealator-duration10 revealator-delay10">
+                            <i class="glyphicon glyphicon-ok"></i>
+                            <span>Лучшие аналитки в сфере бинарных опционов</span>
+                        </li>
+                        <li class="revealator-once revealator-slideright revealator-duration10 revealator-delay10">
+                            <i class="glyphicon glyphicon-ok"></i>
+                            <span>Стабильный доход — от 2% в день</span>
+                        </li>
+                        <li class="revealator-once revealator-slideright revealator-duration10 revealator-delay10">
+                            <i class="glyphicon glyphicon-ok"></i>
+                            <span>Минимальная инвестиция — 500 рублей</span>
+                        </li>
+                        <li class="revealator-once revealator-slideright revealator-duration10 revealator-delay10">
+                            <i class="glyphicon glyphicon-ok"></i>
+                            <span>Полная прозрачность в работе с инвестициями</span>
+                        </li>
+                        <li class="revealator-once revealator-slideright revealator-duration10 revealator-delay10">
+                            <i class="glyphicon glyphicon-ok"></i>
+                            <span>Работа с платёжной системой QIWI</span>
+                        </li>
+                        <li class="revealator-once revealator-slideright revealator-duration10 revealator-delay10">
+                            <i class="glyphicon glyphicon-ok"></i>
+                            <span>Гибкие тарифные планы, долгосрочные инвестиции</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="user-panel revealator-once revealator-slideleft revealator-duration10 revealator-delay5">
+                    <div class="user-reg">
+                        <div class="user-panel-head">
+                            РЕГИСТРАЦИЯ
+                        </div>
+                        <div class="user-data">
+                            <input type="text" class="form-control" placeholder="Фамилия" />
+                            <input type="text" placeholder="Имя" />
+                            <input type="text" placeholder="Номер телефона" />
+                            <input type="password" placeholder="Пароль" />
+                            <button class="registred btn btn-primary">зарегестрироваться</button>
+                        </div>
+                    </div>
+                    <div class="user-login">
+                        <div class="user-panel-head">
+                            Войти
+                        </div>
+                        <div class="user-data">
+                            <input type="text" placeholder="Номер телефона" />
+                            <input type="password" placeholder="Пароль" />
+                            <button class="login btn btn-success">войти</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer">
+                    &copy; RUINVEST @DateTime.Now.Year
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+</body>
