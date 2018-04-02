@@ -109,7 +109,12 @@ $(function () {
 					$element.addClass(position_class);
 				}
 			}
-		});
+        });
+
+        $('*[class*="revealator"]').on("transitionend", function () {
+            var $element = $(this);
+            $element.removeClassWild("revealator*");
+        });
 	};
 
 	function changedContenWindow() {

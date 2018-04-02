@@ -95,3 +95,8 @@ E:\Dev\ruinvest\Ruinvest\Ruinvest\bin\ru\System.Web.WebPages.Razor.resources.dll
 E:\Dev\ruinvest\Ruinvest\Ruinvest\obj\Debug\Ruinvest.csproj.CopyComplete
 E:\Dev\ruinvest\Ruinvest\Ruinvest\obj\Debug\Ruinvest.dll
 E:\Dev\ruinvest\Ruinvest\Ruinvest\obj\Debug\Ruinvest.pdb
+E:\Dev\ruinvest\Ruinvest\Ruinvest\obj\Debug\Ruinvest.csprojResolveAssemblyReference.cache
+E:\Dev\ruinvest\Ruinvest\Ruinvest\bin\EntityFramework.dll
+E:\Dev\ruinvest\Ruinvest\Ruinvest\bin\EntityFramework.SqlServer.dll
+E:\Dev\ruinvest\Ruinvest\Ruinvest\bin\EntityFramework.xml
+E:\Dev\ruinvest\Ruinvest\Ruinvest\bin\EntityFramework.SqlServer.xml

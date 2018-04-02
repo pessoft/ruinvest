@@ -5,3 +5,6 @@ Ruinvest/.vs/Ruinvest/v15/Server/sqlite3/db.lock
 Ruinvest/.vs/Ruinvest/v15/Server/sqlite3/storage.ide
 Ruinvest/.vs/Ruinvest/v15/Server/sqlite3/storage.ide-shm
 Ruinvest/Ruinvest/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+Ruinvest/packages/EntityFramework.6.2.0/content/net40/App.config.transform
+Ruinvest/packages/EntityFramework.6.2.0/content/net40/Web.config.transform
+Ruinvest/packages/EntityFramework.6.2.0/EntityFramework.6.2.0.nupkg
