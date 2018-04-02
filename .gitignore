@@ -101,3 +101,15 @@ Ruinvest/Ruinvest/obj/Debug/Ruinvest.dll
 Ruinvest/Ruinvest/obj/Debug/Ruinvest.pdb
 Ruinvest/Ruinvest/bin/roslyn/System.Collections.Immutable.dll
 Ruinvest/Ruinvest/obj/Debug/Ruinvest.csproj.FileListAbsolute.txt
+Ruinvest/Ruinvest/bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll
+Ruinvest/Ruinvest/bin/roslyn/Microsoft.CodeAnalysis.dll
+Ruinvest/Ruinvest/bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll
+Ruinvest/Ruinvest/bin/roslyn/Microsoft.DiaSymReader.Native.amd64.dll
+Ruinvest/Ruinvest/bin/roslyn/System.IO.Compression.dll
+Ruinvest/Ruinvest/bin/roslyn/System.IO.FileSystem.dll
+Ruinvest/Ruinvest/bin/roslyn/System.IO.FileSystem.Primitives.dll
+Ruinvest/Ruinvest/bin/roslyn/System.Reflection.Metadata.dll
+Ruinvest/Ruinvest/bin/roslyn/System.Security.Cryptography.Primitives.dll
+Ruinvest/Ruinvest/bin/roslyn/System.ValueTuple.dll
+Ruinvest/Ruinvest/bin/roslyn/VBCSCompiler.exe
+Ruinvest/Ruinvest/obj/Debug/Ruinvest.csproj.FileListAbsolute.txt
