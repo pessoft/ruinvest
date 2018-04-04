@@ -6,6 +6,13 @@ $(document).ready(function () {
     autoScroll();
 });
 
+var MessageType = {
+    Success : "success",
+    Info : "info",
+    Warning : "warn",
+    Error: "error"
+}
+
 function depositChoise() {
     $(".deposit").removeClass("active-depost");
     $(this).addClass("active-depost");
@@ -35,18 +42,28 @@ function successAccount(dataResult) {
     if (dataResult.Success) {
         document.location.href = '/Home/Deposits';
     } else {
-        showErrMessage(dataResult.ErrMessage)
+        showInfoMessage(dataResult.ErrMessage, MessageType.Error)
     }
 }
 
-function showErrMessage(message) {
-    $.notify(
-        message,
-        {
-            globalPosition: "bottom left",
-            className: "error",
-            arrowShow: false
-        });
+function showInfoMessage(message, type, elementId) {
+    if (!elementId) {
+        $.notify(
+            message,
+            {
+                globalPosition: "bottom left",
+                className: type,
+                arrowShow: false
+            });
+    } else {
+        $(`#${elementId}`).notify(
+            message,
+            {
+                elementPosition: "bottom center",
+                className: type,
+                arrowShow: true
+            });
+    }
 }
 
 (function ($) {
@@ -66,4 +83,23 @@ function scrollToUserPanel() {
 
 function autoScroll() {
     $('html ,body').animate({ scrollTop: 10 }, 900);
+}
+
+function addNewDeposit() {
+    var data = {
+        FirstName: $("#reg-first-name").val(),
+        SecondName: $("#reg-second-name").val(),
+        PhoneNumber: $("#reg-phone-number").val(),
+        Password: $("#reg-password").val()
+    };
+
+    $.post('/Home/CreateDeposit', data, successAddNewDeposit);
+}
+
+function successAddNewDeposit(data) {
+    if (data.Success) {
+        showInfoMessage("Депозит успешно добавлен", MessageType.Success)
+    } else {
+        showInfoMessage(dataResult.ErrMessage, MessageType.Error)
+    }
 }
