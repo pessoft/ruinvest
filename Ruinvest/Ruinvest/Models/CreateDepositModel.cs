@@ -8,7 +8,7 @@ namespace Ruinvest.Models
 {
     public class CreateDepositModel
     {
-        public decimal DepositAmount { get; set; }
+        public double DepositAmount { get; set; }
         public Rates Rate { get; set; }
     }
 }

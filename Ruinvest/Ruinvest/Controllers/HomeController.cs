@@ -1,4 +1,5 @@
-﻿using Ruinvest.Models;
+﻿using Ruinvest.Logic;
+using Ruinvest.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,49 @@ namespace Ruinvest.Controllers
         public ActionResult CreateDeposit()
         {
             return View();
+        }
+
+        //to do не забыть в дальнейшем проверить наличие средств на счету
+        [HttpPost]
+        [Authorize]
+        public JsonResult CreateDeposit(CreateDepositModel model)
+        {
+            var result = new JSONResult();
+
+            if (model.DepositAmount < 100 || model.DepositAmount > 50000)
+            {
+                result.SetNotSuccess(ErrorMessages.IncorrectAmount);
+            }
+            else
+            {
+                var currentDate = DateTime.Now;
+                var percent = model.Rate == Rates.Month ? ProfitValue.HighPercent : ProfitValue.BasePercent;
+                model.Rate = model.Rate == Logic.Rates.Unknown ? Logic.Rates.OneDay : model.Rate;
+
+                var deposit = new Deposit()
+                {
+                    UserId = AuthWrapper.GetUserIdByLogin(User.Identity.Name),
+                    StartDate = currentDate,
+                    EndDate = currentDate.AddDays((int)model.Rate),
+                    Percent = percent,
+                    StartAmount = model.DepositAmount,
+                    InterimAmount = model.DepositAmount,
+                    EndAmount = model.DepositAmount + (model.DepositAmount * percent / 100.0) * (int)model.Rate
+                };
+
+                var success = DataWrapper.AddNewDeposit(deposit);
+
+                if (success)
+                {
+                    result.SetIsSuccess();
+                }
+                else
+                {
+                    result.SetNotSuccess(ErrorMessages.UnknownError);
+                }
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize]
@@ -50,33 +94,23 @@ namespace Ruinvest.Controllers
         [HttpPost]
         public JsonResult Registration(RegistrationModel model)
         {
-            AccountResult accountResult = new AccountResult();
+            JSONResult accountResult = new JSONResult();
             if (ModelState.IsValid)
             {
-                User user;
-                using (UserContext db = new UserContext())
+                if (!AuthWrapper.UserExist(model.PhoneNumber))
                 {
-                    user = db.Users.FirstOrDefault(p => p.PhoneNumber == model.PhoneNumber);
-                }
-
-                if (user == null)
-                {
-                    using (UserContext db = new UserContext())
+                    var newUser = new User
                     {
-                        db.Users.Add(new User
-                        {
-                            FirstName = model.FirstName,
-                            SecondName = model.SecondName,
-                            PhoneNumber = model.PhoneNumber,
-                            Password = model.Password,
-                            RegistrationDate = DateTime.Now
-                        });
-                        db.SaveChanges();
+                        FirstName = model.FirstName,
+                        SecondName = model.SecondName,
+                        PhoneNumber = model.PhoneNumber,
+                        Password = model.Password,
+                        RegistrationDate = DateTime.Now
+                    };
 
-                        user = db.Users.FirstOrDefault(p => p.PhoneNumber == model.PhoneNumber);
-                    }
+                    var isSaveUser = AuthWrapper.AddNewUser(newUser);
 
-                    if (user != null)
+                    if (isSaveUser)
                     {
                         FormsAuthentication.SetAuthCookie(model.PhoneNumber, true);
                         accountResult.SetIsSuccess();
@@ -102,24 +136,18 @@ namespace Ruinvest.Controllers
         [HttpPost]
         public JsonResult Login(LoginModel model)
         {
-            AccountResult accountResult = new AccountResult();
+            JSONResult accountResult = new JSONResult();
 
             if (ModelState.IsValid)
             {
-                User user;
-                using (UserContext db = new UserContext())
-                {
-                    user = db.Users.FirstOrDefault(p => p.PhoneNumber == model.PhoneNumber && p.Password == model.Password);
-                }
-
-                if (user == null)
-                {
-                    accountResult.SetNotSuccess(ErrorMessages.NotValidAuthData);
-                }
-                else
+                if (AuthWrapper.LoginUser(model.PhoneNumber, model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(model.PhoneNumber, true);
                     accountResult.SetIsSuccess();
+                }
+                else
+                {
+                    accountResult.SetNotSuccess(ErrorMessages.NotValidAuthData);
                 }
             }
             else

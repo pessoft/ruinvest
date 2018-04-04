@@ -10,5 +10,7 @@ namespace Ruinvest.Models
         public static readonly string NotValidAuthData = "Не правильный норме телефона или пароль";
         public static readonly string ExistentPhoneNumber = "Пользователь с таким номером телефона уже есть";
         public static readonly string UnknownError = "Что-то пошло не так. Пожалуйста, попробуйте позже";
+
+        public static readonly string IncorrectAmount = "Не корректная сумма депозита. Размер депозита от 100 до 50000 рублей";
     }
 }

@@ -152,8 +152,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Logic\AuthWrapper.cs" />
+    <Compile Include="Logic\DataWrapper.cs" />
+    <Compile Include="Logic\ProfitValue.cs" />
     <Compile Include="Logic\Rates.cs" />
-    <Compile Include="Models\AccountResult.cs" />
+    <Compile Include="Models\DBStringConnections.cs" />
+    <Compile Include="Models\Deposit.cs" />
+    <Compile Include="Models\DepositContext.cs" />
+    <Compile Include="Models\JSONResult.cs" />
     <Compile Include="Models\CreateDepositModel.cs" />
     <Compile Include="Models\ErrorMessages.cs" />
     <Compile Include="Models\LoginModel.cs" />

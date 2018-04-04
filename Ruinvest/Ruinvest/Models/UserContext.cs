@@ -9,7 +9,7 @@ namespace Ruinvest.Models
     public class UserContext : DbContext
     {
         public UserContext() 
-            : base("RuinvestConnection")
+            : base(DBStringConnections.RuinvestConnection)
         { }
 
         public DbSet<User> Users { get; set; }
