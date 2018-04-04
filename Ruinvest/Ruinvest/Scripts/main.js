@@ -2,6 +2,8 @@ $(document).ready(function () {
     $(".deposit").click(depositChoise);
     $("#reg-btn-ok").click(registrationUser);
     $("#log-btn-ok").click(loginUser);
+    $("a[href='#user-panel']").click(scrollToUserPanel);
+    autoScroll();
 });
 
 function depositChoise() {
@@ -33,11 +35,11 @@ function successAccount(dataResult) {
     if (dataResult.Success) {
         document.location.href = '/Home/Deposits';
     } else {
-        ShowErrMessage(dataResult.ErrMessage)
+        showErrMessage(dataResult.ErrMessage)
     }
 }
 
-function ShowErrMessage(message) {
+function showErrMessage(message) {
     $.notify(
         message,
         {
@@ -55,3 +57,13 @@ function ShowErrMessage(message) {
         });
     };
 })(jQuery);
+
+function scrollToUserPanel() {
+    var timeDuration = 1000;
+    var targetElement = $(this).attr('href');
+    $('html ,body').animate({ scrollTop: $(targetElement).offset().top }, timeDuration);
+}
+
+function autoScroll() {
+    $('html ,body').animate({ scrollTop: 10 }, 900);
+}

@@ -1,0 +1,12 @@
+﻿<div class="block-menu" id="login-menu">
+    <div class="menu">
+        @if (User.Identity.IsAuthenticated)
+        {
+            @RenderPage("~/Views/Shared/_LoginUserListMenu.cshtml")
+        }
+        else
+        {
+            @RenderPage("~/Views/Shared/_UserListMenu.cshtml")
+        }
+    </div>
+</div>

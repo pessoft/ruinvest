@@ -1,0 +1,46 @@
+﻿@using Ruinvest.Logic
+@{
+    Layout = "~/Views/Shared/_RuinvestBase.cshtml";
+}
+
+<div class="label-deposit revealator-once revealator-slideup revealator-duration30 revealator-delay1 ">
+    <div>
+        <span>Тарифные планы</span>
+    </div>
+</div>
+
+<div class="my-money revealator-once revealator-slideup revealator-duration30 revealator-delay1 ">
+    <div>
+        <span>доступные средства: 0 руб.</span>
+    </div>
+</div>
+
+<div class="discription-deposit revealator-once revealator-slidedown  revealator-duration15 revealator-delay15">
+    <div data-day="@Rates.OneDay" class="deposit">
+        <div class="diposit-day">1</div>
+        <div>день</div>
+        <div class="description-profit">прибыль 1.5% в день</div>
+    </div>
+    <div data-day="@Rates.Week" class="deposit">
+        <div class="diposit-day">7</div>
+        <div>дней</div>
+        <div class="description-profit">прибыль 1.5% в день</div>
+    </div>
+    <div data-day="@Rates.TwoWeeks" class="deposit">
+        <div class="diposit-day">14</div>
+        <div>дней</div>
+        <div class="description-profit">прибыль 1.5% в день</div>
+    </div>
+    <div data-day="@Rates.Month" class="deposit">
+        <div class="diposit-day">30</div>
+        <div>дней</div>
+        <div class="description-profit">прибыль 2% в день</div>
+    </div>
+</div>
+
+<div class="activate-deposit">
+    <div class="input-append">
+        <input type="text" placeholder="Введите сумму депозита" class="">
+        <button type="submit" class="">Создать депозит</button>
+    </div>
+</div>

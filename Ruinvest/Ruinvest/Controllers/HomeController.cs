@@ -15,6 +15,38 @@ namespace Ruinvest.Controllers
             return View();
         }
 
+        [Authorize]
+        public ActionResult CreateDeposit()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult Deposits()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult MoneyIn()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult MoneyOut()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+
+            return RedirectToAction(nameof(Index));
+        }
+
         [HttpPost]
         public JsonResult Registration(RegistrationModel model)
         {
