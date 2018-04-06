@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ruinvest.Logic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,5 +16,6 @@ namespace Ruinvest.Models
         public double StartAmount { get; set; }
         public double InterimAmount { get; set; }
         public double EndAmount { get; set; }
+        public StatusDeposit Status { get; set }
     }
 }

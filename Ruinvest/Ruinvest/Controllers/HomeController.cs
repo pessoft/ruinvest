@@ -47,7 +47,8 @@ namespace Ruinvest.Controllers
                     Percent = percent,
                     StartAmount = model.DepositAmount,
                     InterimAmount = model.DepositAmount,
-                    EndAmount = model.DepositAmount + (model.DepositAmount * percent / 100.0) * (int)model.Rate
+                    EndAmount = model.DepositAmount + (model.DepositAmount * percent / 100.0) * (int)model.Rate,
+                    Status = StatusDeposit.Active
                 };
 
                 var success = DataWrapper.AddNewDeposit(deposit);
@@ -68,6 +69,10 @@ namespace Ruinvest.Controllers
         [Authorize]
         public ActionResult Deposits()
         {
+            var userId = AuthWrapper.GetUserIdByLogin(User.Identity.Name);
+            var deposits = DataWrapper.GetDepostByUserId(userId);
+            ViewBag.Deposits = deposits;
+
             return View();
         }
 

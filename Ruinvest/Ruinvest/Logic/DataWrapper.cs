@@ -26,5 +26,23 @@ namespace Ruinvest.Logic
           
             return success;
         }
+
+        public static IEnumerable<Deposit> GetDepostByUserId(int userId)
+        {
+            IEnumerable<Deposit> deposits = new List<Deposit>();
+            try
+            {
+                using (DepositContext db = new DepositContext())
+                {
+                    deposits = db.Deposits?.Where(p => p.UserId == userId);
+                }
+            }
+            catch (Exception e)
+            {
+                deposits = new List<Deposit>();
+            }
+
+            return deposits;
+        }
     }
 }

@@ -349,13 +349,14 @@ body, html {
         background: rgba(255,255,255,0.1);
     }
 
-.menu li {
-    display: inline;
-    padding: 1%;
-    padding-bottom: 1.2%;
-    border-bottom: solid 3px;
-    padding-right: 2%;
-}
+    .menu li {
+        display: inline;
+        padding: 1%;
+        padding-bottom: 1.2%;
+        border-bottom: solid 3px;
+        padding-right: 1.2%;
+        padding-left: 1.2%;
+    }
 
 .menu ul {
     list-style-type: none;
@@ -373,4 +374,89 @@ body, html {
 .description-profit {
     font-size: 16px;
     margin-top: -15%
+}
+
+.active-item-menu {
+    border-bottom-color: rgba(219,83,59,1);
+}
+
+
+.label-deposits {
+    font: normal normal normal 55px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans-serif;
+    color: #CFD0D1;
+    height: 80px;
+    text-transform: uppercase;
+    border-bottom: solid 3px rgba(219,83,59,1);
+    margin-top: 3.5%;
+}
+
+.deposit-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1%;
+    width: 100%;
+}
+
+.deposit-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font: normal normal normal 18px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans-serif;
+    border-bottom: solid 3px;
+    width: 80%;
+    margin-bottom: 2%;
+    padding-bottom: 2%;
+}
+
+.deposit-item-partial {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    text-align: center;
+}
+
+.deposit-item-header {
+    padding: 1%;
+    border-bottom-color: cornflowerblue;
+}
+
+.refresh {
+    -webkit-animation: refresh 3s infinite linear;
+    animation: refresh 3s infinite linear;
+}
+
+@keyframes refresh {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg)
+    }
+}
+
+.deposit-item-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.depost-period {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.deposit-indicator {
+    padding-right: 5%;
 }

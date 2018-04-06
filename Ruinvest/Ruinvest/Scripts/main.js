@@ -3,6 +3,11 @@ $(document).ready(function () {
     $("#reg-btn-ok").click(registrationUser);
     $("#log-btn-ok").click(loginUser);
     $("a[href='#user-panel']").click(scrollToUserPanel);
+    $("#log-password").keypress((e) => {
+        if (e.keyCode == 13) {
+            loginUser();
+        }
+    });
     autoScroll();
 });
 

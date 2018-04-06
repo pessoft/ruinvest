@@ -1,5 +1,73 @@
 ﻿
 @{
+    /**/
+
     Layout = "~/Views/Shared/_RuinvestBase.cshtml";
 }
+
+<div class="label-deposits revealator-once revealator-slideup revealator-duration30 revealator-delay1 ">
+    <div>
+        <span>Список открытых и закрытых вкладов</span>
+    </div>
+</div>
+<div class="deposit-list">
+    <div class="deposit-item deposit-item-header ">
+        <div id="deposit-item-date" class="deposit-item-partial">
+            <i class="glyphicon glyphicon-hourglass"></i>
+            <div>Период<br>инвестирования</div>
+        </div>
+        <div id="deposit-item-amount" class="deposit-item-partial">
+            <i class="glyphicon glyphicon-ruble"></i>
+            <div>Сумма вклада и<br>итоговая суммая</div>
+        </div>
+        <div id="deposit-item-percent" class="deposit-item-partial">
+            <i class="glyphicon glyphicon-upload"></i>
+            <div>Процент вклада</div>
+        </div>
+        <div id="deposit-item-current-amount" class="deposit-item-partial">
+            <i class="glyphicon glyphicon-piggy-bank"></i>
+            <div>Заработано</div>
+        </div>
+
+        <div id="deposit-item-status" class="deposit-item-partial">
+            <i class="glyphicon glyphicon-refresh"> </i>
+            <div>Статус вклада</div>
+        </div>
+    </div>
+    <div class="deposit-item">
+        <div id="deposit-item-date" class="deposit-item-partial">
+            <div class="deposit-item-container">
+                <div class="deposit-indicator">
+                    <i class="glyphicon glyphicon-hourglass refresh"></i>
+                </div>
+                <div class="deposit-period">
+                    <div class="deposit-item-start">
+                        4 Апреля 22:57
+                    </div>
+                    <div class="deposit-item-end">
+                        5 Апреля 22:57
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="deposit-item-amount" class="deposit-item-partial">
+            <div class="deposit-item-start">
+                35,000 руб
+            </div>
+            <div class="deposit-item-end">
+                35,525 руб.
+            </div>
+        </div>
+        <div id="deposit-item-percent" class="deposit-item-partial">
+            1.5%
+        </div>
+        <div id="deposit-item-current-amount" class="deposit-item-partial">
+            315 руб
+        </div>
+
+        <div id="deposit-item-status" class="deposit-item-partial">
+            Активный
+        </div>
+    </div>
+</div>
 
