@@ -1,8 +1,9 @@
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $(".deposit").click(depositChoise);
     $("#reg-btn-ok").click(registrationUser);
     $("#log-btn-ok").click(loginUser);
     $("a[href='#user-panel']").click(scrollToUserPanel);
+    $("#addNewDeposit").click(addNewDeposit);
     $("#log-password").keypress((e) => {
         if (e.keyCode == 13) {
             loginUser();
@@ -16,6 +17,11 @@ var MessageType = {
     Info : "info",
     Warning : "warn",
     Error: "error"
+}
+
+var MessageTemplate = {
+    CreateDepositSuccess: "Депозит успешно добавлен",
+    NotSelectedDeposit: "Выберите один из тарифов"
 }
 
 function depositChoise() {
@@ -91,17 +97,23 @@ function autoScroll() {
 }
 
 function addNewDeposit() {
-    var data = {
-        DepositAmount: $(".deposit.active - depost").attr("data-day").val(),
-        Rate: $("#input-amount").val(),
-    };
-    
-    $.post('/Home/CreateDeposit', data, successAddNewDeposit);
+    let $depositActive = $(".deposit.active - depost");
+
+    if ($depositActive.length != 0) {
+        var data = {
+            DepositAmount: $depositActive.attr("data-day").val(),
+            Rate: $("#input-amount").val(),
+        };
+
+        $.post('/Home/CreateDeposit', data, successAddNewDeposit);
+    } else {
+        showInfoMessage(MessageTemplate.NotSelectedDeposit, MessageType.Info, "input-amount")
+    }
 }
 
 function successAddNewDeposit(data) {
     if (data.Success) {
-        showInfoMessage("������� ������� ��������", MessageType.Success)
+        showInfoMessage(MessageTemplate.CreateDepositSuccess, MessageType.Success)
     } else {
         showInfoMessage(dataResult.ErrMessage, MessageType.Error)
     }
