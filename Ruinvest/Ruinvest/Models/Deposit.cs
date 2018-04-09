@@ -16,6 +16,6 @@ namespace Ruinvest.Models
         public double StartAmount { get; set; }
         public double InterimAmount { get; set; }
         public double EndAmount { get; set; }
-        public StatusDeposit Status { get; set }
+        public StatusDeposit Status { get; set; }
     }
 }

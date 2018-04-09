@@ -92,12 +92,10 @@ function autoScroll() {
 
 function addNewDeposit() {
     var data = {
-        FirstName: $("#reg-first-name").val(),
-        SecondName: $("#reg-second-name").val(),
-        PhoneNumber: $("#reg-phone-number").val(),
-        Password: $("#reg-password").val()
+        DepositAmount: $(".deposit.active - depost").attr("data-day").val(),
+        Rate: $("#input-amount").val(),
     };
-
+    
     $.post('/Home/CreateDeposit', data, successAddNewDeposit);
 }
 

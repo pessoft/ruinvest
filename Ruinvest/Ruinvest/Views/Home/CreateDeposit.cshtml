@@ -17,22 +17,22 @@
 
 <div class="discription-deposit revealator-once revealator-slidedown  revealator-duration15 revealator-delay15">
     <div data-day="@Rates.OneDay" class="deposit">
-        <div class="diposit-day">1</div>
+        <div class="diposit-day">@Rates.OneDay</div>
         <div>день</div>
         <div class="description-profit">прибыль 1.5% в день</div>
     </div>
     <div data-day="@Rates.Week" class="deposit">
-        <div class="diposit-day">7</div>
+        <div class="diposit-day">@Rates.Week</div>
         <div>дней</div>
         <div class="description-profit">прибыль 1.5% в день</div>
     </div>
     <div data-day="@Rates.TwoWeeks" class="deposit">
-        <div class="diposit-day">14</div>
+        <div class="diposit-day">@Rates.TwoWeeks</div>
         <div>дней</div>
         <div class="description-profit">прибыль 1.5% в день</div>
     </div>
     <div data-day="@Rates.Month" class="deposit">
-        <div class="diposit-day">30</div>
+        <div class="diposit-day">@Rates.Month</div>
         <div>дней</div>
         <div class="description-profit">прибыль 2% в день</div>
     </div>
@@ -40,7 +40,7 @@
 
 <div class="activate-deposit">
     <div class="input-append">
-        <input type="text" placeholder="Введите сумму депозита" class="">
+        <input type="text" placeholder="Введите сумму депозита" class="" id="input-amount">
         <button type="submit" class="">Создать депозит</button>
     </div>
 </div>
