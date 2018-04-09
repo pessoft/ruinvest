@@ -97,12 +97,12 @@ function autoScroll() {
 }
 
 function addNewDeposit() {
-    let $depositActive = $(".deposit.active - depost");
+    let $depositActive = $(".deposit.active-depost");
 
     if ($depositActive.length != 0) {
         var data = {
-            DepositAmount: $depositActive.attr("data-day").val(),
-            Rate: $("#input-amount").val(),
+            DepositAmount: $("#input-amount").val(),
+            Rate: $depositActive.attr("data-day"),
         };
 
         $.post('/Home/CreateDeposit', data, successAddNewDeposit);

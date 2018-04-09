@@ -16,6 +16,7 @@ namespace Ruinvest.Logic
                 using (DepositContext db = new DepositContext())
                 {
                     db.Deposits.Add(deposit);
+                    db.SaveChanges();
                     success = true;
                 }
             }

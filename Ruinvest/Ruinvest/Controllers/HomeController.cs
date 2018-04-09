@@ -71,6 +71,11 @@ namespace Ruinvest.Controllers
         {
             var userId = AuthWrapper.GetUserIdByLogin(User.Identity.Name);
             var deposits = DataWrapper.GetDepostByUserId(userId);
+
+            deposits = deposits
+                .OrderByDescending(p => p.Status)
+                .ThenBy(p => p.StartDate)
+                .ToList();
             ViewBag.Deposits = deposits;
 
             return View();

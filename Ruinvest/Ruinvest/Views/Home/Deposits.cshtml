@@ -5,21 +5,21 @@
     Layout = "~/Views/Shared/_RuinvestBase.cshtml";
 }
 
-<div class="label-deposits revealator-once revealator-slideup revealator-duration30 revealator-delay1 ">
+<div class="label-deposits revealator-once revealator-zoomin revealator-duration30 revealator-delay5 ">
     <div>
-        @if (ViewBag.Deposits != null && ViewBag.Deposits.Any())
+        @if (ViewBag.Deposits != null && ViewBag.Deposits.Count > 0)
         {
             <span>Список открытых и закрытых вкладов</span>
         }
         else
         {
-            <span>Вы пока нет вкалдов</span>
+            <span>У вас пока нет вкалдов</span>
         }
 
     </div>
 </div>
 
-@if (ViewBag.Deposits != null && ViewBag.Deposits.Any())
+@if (ViewBag.Deposits != null && ViewBag.Deposits.Count > 0)
 {
     <div class="deposit-list">
         <div class="deposit-item deposit-item-header ">
@@ -46,42 +46,61 @@
             </div>
         </div>
 
-        @foreach (var deposits in ViewBag.Deposits)
+        @foreach (var deposit in ViewBag.Deposits)
         {
-            <div class="deposit-item">
+            
+            var successDepositObj = new
+            {
+                Active = deposit.Status == StatusDeposit.Active,
+                ClassCss = deposit.Status == StatusDeposit.Finished ? "success-deposit" : ""
+            };
+            
+            <div class="deposit-item @successDepositObj.ClassCss ">
                 <div id="deposit-item-date" class="deposit-item-partial">
                     <div class="deposit-item-container">
                         <div class="deposit-indicator">
-                            <i class="glyphicon glyphicon-hourglass refresh"></i>
+                            @if (successDepositObj.Active)
+                            {
+                                <i class="glyphicon glyphicon-hourglass refresh"></i>
+                            }
+                            else
+                            {
+                                <i class="glyphicon glyphicon-check"></i>
+                            }
                         </div>
                         <div class="deposit-period">
                             <div class="deposit-item-start">
-                                @deposits.StartDate.ToString("d MMMM yyyy HH:mm");
+                                @deposit.StartDate.ToString("d MMMM yyyy HH:mm")
                             </div>
                             <div class="deposit-item-end">
-                                @deposits.EndDate.ToString("d MMMM yyyy HH:mm");
+                                @deposit.EndDate.ToString("d MMMM yyyy HH:mm")
                             </div>
                         </div>
                     </div>
                 </div>
                 <div id="deposit-item-amount" class="deposit-item-partial">
                     <div class="deposit-item-start">
-                        @deposits.StartAmount руб.
+                        @deposit.StartAmount руб.
                     </div>
                     <div class="deposit-item-end">
-                        @deposits.EndAmount руб.
+                        @deposit.EndAmount руб.
                     </div>
                 </div>
                 <div id="deposit-item-percent" class="deposit-item-partial">
-                    @deposits.Percent%
+                    @deposit.Percent%
                 </div>
                 <div id="deposit-item-current-amount" class="deposit-item-partial">
-                    @deposits.InterimAmount руб.
+                    @deposit.InterimAmount руб.
                 </div>
 
                 <div id="deposit-item-status" class="deposit-item-partial">
-                    @{
-                        @deposits.InterimAmount == StatusDeposit.Active ? "Активный" : "Завершен";
+                    @if (successDepositObj.Active)
+                    {
+                        <span>Активный</span>
+                    }
+                    else
+                    {
+                        <span>Завершен</span>
                     }
                 </div>
             </div>

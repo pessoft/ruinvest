@@ -382,7 +382,7 @@ body, html {
 
 
 .label-deposits {
-    font: normal normal normal 55px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans-serif;
+    font: normal normal normal 58px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans-serif;
     color: #CFD0D1;
     height: 80px;
     text-transform: uppercase;
@@ -406,7 +406,7 @@ body, html {
     align-items: center;
     font: normal normal normal 18px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans-serif;
     border-bottom: solid 3px;
-    width: 80%;
+    width: 85%;
     margin-bottom: 2%;
     padding-bottom: 2%;
 }
@@ -459,4 +459,8 @@ body, html {
 
 .deposit-indicator {
     padding-right: 5%;
+}
+
+.success-deposit {
+    border-bottom-color: palegreen;
 }
