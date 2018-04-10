@@ -21,7 +21,8 @@ var MessageType = {
 
 var MessageTemplate = {
     CreateDepositSuccess: "Депозит успешно добавлен",
-    NotSelectedDeposit: "Выберите один из тарифов"
+    NotSelectedDeposit: "Выберите один из тарифов",
+    NotEnoughMoney : "На вашем счете не достаточно средств"
 }
 
 function depositChoise() {
@@ -98,21 +99,39 @@ function autoScroll() {
 
 function addNewDeposit() {
     let $depositActive = $(".deposit.active-depost");
+    let availableMoney = Number($("#availableMoney").attr("data-money"));
+    let model = {
+        Success : true,
+        Message : ""
+    };
+    let depositAmount = Number($("#input-amount").val());
 
-    if ($depositActive.length != 0) {
+    if (depositAmount > availableMoney) {
+        model.Success = false;
+        model.Message = MessageTemplate.NotEnoughMoney
+    }
+
+    if ($depositActive.length == 0) {
+        model.Success = false;
+        model.Message = MessageTemplate.NotSelectedDeposit
+    }
+
+    if (model.Success) {
         var data = {
-            DepositAmount: $("#input-amount").val(),
+            DepositAmount: depositAmount,
             Rate: $depositActive.attr("data-day"),
         };
 
         $.post('/Home/CreateDeposit', data, successAddNewDeposit);
     } else {
-        showInfoMessage(MessageTemplate.NotSelectedDeposit, MessageType.Info, "input-amount")
+        showInfoMessage(model.Message, MessageType.Info, "input-amount")
     }
 }
 
-function successAddNewDeposit(data) {
-    if (data.Success) {
+function successAddNewDeposit(dataResult) {
+    if (dataResult.Success) {
+        $("#availableMoney").attr("data-money", dataResult.Data);
+        $("#availableMoney #userMoney").html(dataResult.Data);
         showInfoMessage(MessageTemplate.CreateDepositSuccess, MessageType.Success)
     } else {
         showInfoMessage(dataResult.ErrMessage, MessageType.Error)

@@ -12,5 +12,7 @@ namespace Ruinvest.Models
         public static readonly string UnknownError = "Что-то пошло не так. Пожалуйста, попробуйте позже";
 
         public static readonly string IncorrectAmount = "Не корректная сумма депозита. Размер депозита от 100 до 50000 рублей";
+        public static readonly string NotEnoughMoney = "На вашем счете не достаточно средств";
+
     }
 }

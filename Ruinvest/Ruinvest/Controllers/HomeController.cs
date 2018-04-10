@@ -19,6 +19,10 @@ namespace Ruinvest.Controllers
         [Authorize]
         public ActionResult CreateDeposit()
         {
+            var userId = AuthWrapper.GetUserIdByLogin(User.Identity.Name);
+            var availableMoney = DataWrapper.AvailableMoneyByUserId(userId);
+            ViewBag.AvailableMoney = availableMoney;
+
             return View();
         }
 
@@ -28,10 +32,19 @@ namespace Ruinvest.Controllers
         public JsonResult CreateDeposit(CreateDepositModel model)
         {
             var result = new JSONResult();
+            var userId = AuthWrapper.GetUserIdByLogin(User.Identity.Name);
+            var availableMoney = DataWrapper.AvailableMoneyByUserId(userId);
 
-            if (model.DepositAmount < 100 || model.DepositAmount > 50000)
+            if ((availableMoney < model.DepositAmount) || (model.DepositAmount < 100 || model.DepositAmount > 50000))
             {
-                result.SetNotSuccess(ErrorMessages.IncorrectAmount);
+                if (availableMoney < model.DepositAmount)
+                {
+                    result.SetNotSuccess(ErrorMessages.NotEnoughMoney);
+                }
+                else
+                {
+                    result.SetNotSuccess(ErrorMessages.IncorrectAmount);
+                }
             }
             else
             {
@@ -41,7 +54,7 @@ namespace Ruinvest.Controllers
 
                 var deposit = new Deposit()
                 {
-                    UserId = AuthWrapper.GetUserIdByLogin(User.Identity.Name),
+                    UserId = userId,
                     StartDate = currentDate,
                     EndDate = currentDate.AddDays((int)model.Rate),
                     Percent = percent,
@@ -51,20 +64,22 @@ namespace Ruinvest.Controllers
                     Status = StatusDeposit.Active
                 };
 
-                var success = DataWrapper.AddNewDeposit(deposit);
+                var successAddNewDeposit = DataWrapper.AddNewDeposit(deposit);
+                var successTakeAmount = DataWrapper.TakeMoneyByUserId(userId, model.DepositAmount);
+                var newBalanceUser = DataWrapper.AvailableMoneyByUserId(userId);
 
-                if (success)
+                if (successAddNewDeposit && successTakeAmount)
                 {
-                    result.SetIsSuccess();
+                    result.SetIsSuccess(newBalanceUser);
                 }
                 else
                 {
                     result.SetNotSuccess(ErrorMessages.UnknownError);
                 }
-            }
+                //}
 
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
 
         [Authorize]
         public ActionResult Deposits()
@@ -122,6 +137,9 @@ namespace Ruinvest.Controllers
 
                     if (isSaveUser)
                     {
+                        var userId = AuthWrapper.GetUserIdByLogin(model.PhoneNumber);
+
+                        DataWrapper.AddCashUser(userId);
                         FormsAuthentication.SetAuthCookie(model.PhoneNumber, true);
                         accountResult.SetIsSuccess();
                     }
