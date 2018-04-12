@@ -76,10 +76,10 @@ namespace Ruinvest.Controllers
                 {
                     result.SetNotSuccess(ErrorMessages.UnknownError);
                 }
-                //}
-
-                return Json(result, JsonRequestBehavior.AllowGet);
             }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
         [Authorize]
         public ActionResult Deposits()
