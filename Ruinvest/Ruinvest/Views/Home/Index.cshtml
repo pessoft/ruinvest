@@ -78,7 +78,7 @@
                 <input type="text" placeholder="Имя" id="reg-second-name" />
                 <input type="text" placeholder="Номер телефона" id="reg-phone-number" />
                 <input type="password" placeholder="Пароль" id="reg-password" />
-                <button class="registred btn btn-primary" id="reg-btn-ok">зарегестрироваться</button>
+                <button class="registred btn btn-primary" id="reg-btn-ok" data-request-url="@Url.Action("Registration", "Home")">зарегестрироваться</button>
             </div>
         </div>
         <div class="user-login">
@@ -88,7 +88,7 @@
             <div class="user-data">
                 <input type="text" placeholder="Номер телефона" id="log-phone-number" />
                 <input type="password" placeholder="Пароль" id="log-password" />
-                <button class="login btn btn-success" id="log-btn-ok">войти</button>
+                <button class="login btn btn-success" id="log-btn-ok" data-request-url="@Url.Action("Login", "Home")">войти</button>
             </div>
         </div>
     </div>

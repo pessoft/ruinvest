@@ -38,7 +38,7 @@ function registrationUser() {
         Password: $("#reg-password").val()
     };
 
-    $.post('/Home/Registration', data, successAccount);
+    $.post($(this).data('request-url'), data, successAccount);
 }
 
 function loginUser() {
@@ -47,7 +47,7 @@ function loginUser() {
         Password: $("#log-password").val()
     };
 
-    $.post('/Home/Login', data, successAccount);
+    $.post($(this).data('request-url'), data, successAccount);
 }
 
 function successAccount(dataResult) {
