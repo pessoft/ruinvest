@@ -54,6 +54,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Md5Coder, Version=0.0.0.0, Culture=neutral">
+      <HintPath>..\packages\Fayi.Md5Coder.1.0.1\lib\Md5Coder.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -159,6 +162,8 @@
     <Compile Include="Logic\ProfitValue.cs" />
     <Compile Include="Logic\Rates.cs" />
     <Compile Include="Logic\StatusDeposit.cs" />
+    <Compile Include="Logic\StatusOrder.cs" />
+    <Compile Include="Logic\UtilsHelper.cs" />
     <Compile Include="Models\DBStringConnections.cs" />
     <Compile Include="Models\Deposit.cs" />
     <Compile Include="Models\DepositContext.cs" />
@@ -166,6 +171,8 @@
     <Compile Include="Models\CreateDepositModel.cs" />
     <Compile Include="Models\ErrorMessages.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\OrderTopBalanceContext.cs" />
+    <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserCashAccountContext.cs" />

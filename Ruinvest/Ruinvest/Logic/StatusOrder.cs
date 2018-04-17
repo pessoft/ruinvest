@@ -5,9 +5,9 @@ using System.Web;
 
 namespace Ruinvest.Logic
 {
-    public enum StatusDeposit
+    public enum StatusOrder
     {
-        Finished = 0,
-        Active = 1,
+        InProgress = 0,
+        Finished = 1
     }
 }

@@ -3,6 +3,7 @@ using Ruinvest.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -14,6 +15,33 @@ namespace Ruinvest.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public void MoneIn(double amount)
+        {
+            var newOrder = new OrderTopBalanceModel()
+            {
+                OrderId = Guid.NewGuid().ToString(),
+                UserId = AuthWrapper.GetUserIdByLogin(User.Identity.Name),
+                Amount = amount,
+                OrderDate = DateTime.Now,
+                Status = StatusOrder.InProgress
+            };
+
+            //HttpClient client = new HttpClient();
+            //Response.Redirect();
+        }
+
+        [HttpPost]
+        public void OrderNotify()
+        {
+            string amount = Request.QueryString["AMOUNT"];
+            string orderId = Request.QueryString["MERCHANT_ORDER_ID"];
+
+            var order = DataWrapper.GetOrderTopBalanceByOrderId(orderId);
+
+
+
         }
 
         [Authorize]

@@ -8,6 +8,69 @@ namespace Ruinvest.Logic
 {
     public class DataWrapper
     {
+        public static bool AddNewOrderTopBalance(OrderTopBalanceModel order)
+        {
+            var success = false;
+            try
+            {
+                using (var db = new OrderTopBalanceContext())
+                {
+                    db.Orders.Add(order);
+                    db.SaveChanges();
+                    success = true;
+                }
+            }
+            catch (Exception e)
+            {
+                success = false;
+            }
+
+            return success;
+        }
+
+        public static OrderTopBalanceModel GetOrderTopBalanceByOrderId(string orderId)
+        {
+            OrderTopBalanceModel order;
+            try
+            {
+                using (var db = new OrderTopBalanceContext())
+                {
+                    order = db.Orders.FirstOrDefault(p => p.OrderId == orderId);
+                }
+            }
+            catch (Exception e)
+            {
+                order = null;
+            }
+
+            return order;
+        }
+
+        public static bool MarkOrderTopBalanceFinished(string orderId)
+        {
+            bool success = false;
+            try
+            {
+                using (var db = new OrderTopBalanceContext())
+                {
+                    var order = db.Orders.FirstOrDefault(p => p.OrderId == orderId);
+
+                    if (order != null)
+                    {
+                        order.Status = StatusOrder.Finished;
+                        db.SaveChanges();
+                        success = true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                success = false;
+            }
+
+            return success;
+        }
+
         public static double AvailableMoneyByUserId(int userId)
         {
             double money = 0;
