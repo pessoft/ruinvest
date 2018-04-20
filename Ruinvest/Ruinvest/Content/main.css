@@ -256,7 +256,7 @@ body, html {
     margin-top: 3%;
 }
 
-.label-deposit {
+.label-deposit, .label-money-in {
     font: normal normal normal 70px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans-serif;
     color: #CFD0D1;
     height: 80px;
@@ -264,7 +264,7 @@ body, html {
     margin-top: 2%;
 }
 
-.activate-deposit {
+.activate-deposit, .money-in {
     margin-top: 5%;
     width: 100%;
     display: flex;

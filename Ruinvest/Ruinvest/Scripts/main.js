@@ -4,6 +4,7 @@
     $("#log-btn-ok").click(loginUser);
     $("a[href='#user-panel']").click(scrollToUserPanel);
     $("#addNewDeposit").click(addNewDeposit);
+    $("#addMoney").click(addMoney);
     $("#log-password").keypress((e) => {
         if (e.keyCode == 13) {
             loginUser();
@@ -22,7 +23,8 @@ var MessageType = {
 var MessageTemplate = {
     CreateDepositSuccess: "Депозит успешно добавлен",
     NotSelectedDeposit: "Выберите один из тарифов",
-    NotEnoughMoney : "На вашем счете не достаточно средств"
+    NotEnoughMoney: "На вашем счете не достаточно средств",
+    IncorrectedAmount: "Некорректная сумма"
 }
 
 function depositChoise() {
@@ -125,6 +127,24 @@ function addNewDeposit() {
         $.post('/Home/CreateDeposit', data, successAddNewDeposit);
     } else {
         showInfoMessage(model.Message, MessageType.Info, "input-amount")
+    }
+}
+
+function addMoney() {
+    let amount = Number($("#input-moneyIn").val());
+
+    if (amount < 100 || amount > 50000) {
+        showInfoMessage(MessageTemplate.IncorrectedAmount, MessageType.Info, "input-moneyIn")
+    } else {
+        $.post('/Home/MoneyIn', { Amount: amount }, successAddMoney);
+    }
+}
+
+function successAddMoney(dataResult) {
+    if (dataResult.Success) {
+        window.location.href = dataResult.Data;
+    } else {
+        showInfoMessage(dataResult.ErrMessage, MessageType.Error)
     }
 }
 

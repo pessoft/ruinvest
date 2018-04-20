@@ -16,32 +16,55 @@ namespace Ruinvest.Controllers
         {
             return View();
         }
-
-        public void MoneIn(double amount)
+        [HttpPost]
+        [Authorize]
+        public JsonResult MoneyIn(MoneyInModel amountData)
         {
+            var result = new JSONResult();
+
+            if (amountData.Amount < 100 || amountData.Amount > 50000)
+            {
+                result.SetNotSuccess(ErrorMessages.IncorrectAmount);
+            }
+
             var newOrder = new OrderTopBalanceModel()
             {
                 OrderId = Guid.NewGuid().ToString(),
                 UserId = AuthWrapper.GetUserIdByLogin(User.Identity.Name),
-                Amount = amount,
+                Amount = amountData.Amount,
                 OrderDate = DateTime.Now,
                 Status = StatusOrder.InProgress
             };
 
-            //HttpClient client = new HttpClient();
-            //Response.Redirect();
+            //DataWrapper.AddNewOrderTopBalance(newOrder);
+            var signature = newOrder.GetSignatureMoneyIn();
+            var uri = @"http://www.free-kassa.ru/merchant/cash.php?";
+            var storeId = string.Format("m={0}&", UtilsHelper.GetStoreId());
+            var amountStr = string.Format("oa={0}&", newOrder.Amount);
+            var orderId = string.Format("o={0}&", newOrder.OrderId);
+            var sign = string.Format("s={0}", newOrder.GetSignatureMoneyIn());
+
+            var urlMoneyIn = string.Format("{0}{1}{2}{3}{4}", uri, storeId, amountStr, orderId, sign);
+
+            result.SetIsSuccess(urlMoneyIn);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public void OrderNotify()
         {
-            string amount = Request.QueryString["AMOUNT"];
+            string amountStr = Request.QueryString["AMOUNT"];
+            double amount = 0;
+            double.TryParse(amountStr, out amount);
             string orderId = Request.QueryString["MERCHANT_ORDER_ID"];
-
+            string sign = Request.QueryString["SIGN"];
             var order = DataWrapper.GetOrderTopBalanceByOrderId(orderId);
 
-
-
+            if (order.GetSignatureOrderNotify() == sign && order.Amount == amount)
+            {
+                DataWrapper.MarkOrderTopBalanceFinished(order.OrderId);
+            }
         }
 
         [Authorize]

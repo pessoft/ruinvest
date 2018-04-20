@@ -64,6 +64,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -171,6 +172,7 @@
     <Compile Include="Models\CreateDepositModel.cs" />
     <Compile Include="Models\ErrorMessages.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\MoneyInModel.cs" />
     <Compile Include="Models\OrderTopBalanceContext.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />

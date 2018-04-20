@@ -58,6 +58,7 @@ namespace Ruinvest.Logic
                     if (order != null)
                     {
                         order.Status = StatusOrder.Finished;
+                        order.DatePayment = DateTime.Now;
                         db.SaveChanges();
                         success = true;
                     }

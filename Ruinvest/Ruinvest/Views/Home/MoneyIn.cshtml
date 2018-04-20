@@ -1,4 +1,17 @@
-﻿
+﻿@using Ruinvest.Logic
 @{
     Layout = "~/Views/Shared/_RuinvestBase.cshtml";
 }
+
+<div class="label-money-in revealator-once revealator-slideup revealator-duration30 revealator-delay1 ">
+    <div>
+        <span>Пополнение счёта</span>
+    </div>
+</div>
+
+<div class="money-in">
+    <div class="input-append">
+        <input type="text" placeholder="Введите сумму" id="input-moneyIn">
+        <button type="submit" id="addMoney">Пополнить</button>
+    </div>
+</div>
