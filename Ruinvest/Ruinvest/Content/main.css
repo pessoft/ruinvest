@@ -1,4 +1,4 @@
-.body {
+.body, body {
     top: 0px;
     width: 100%;
     height: 100%;
@@ -7,12 +7,15 @@
     background-position: center top;
     background-repeat: no-repeat;
     background-color: rgb(22, 32, 55);
-    background-image: url("../Image/body-background.png")
+    background-image: url("../Image/body-background.png");
+    position:relative;
+    display:flex;
+    flex-direction:column;
 }
 
 .body-background {
-    position: absolute;
-    overflow: auto;
+    /*position: absolute;
+    overflow: auto;*/
     top: 0px;
     width: 100%;
     background-size: cover;
@@ -107,14 +110,15 @@ body, html {
     align-items: center;
     width: 100%;
 }
+
     .user-data input {
         color: #CFD0D1;
     }
 
-    .user-data input:focus {
-        outline: none !important;
-        box-shadow: 0 0 60px rgba(230,230,230,0.6) !important;
-    }
+        .user-data input:focus {
+            outline: none !important;
+            box-shadow: 0 0 60px rgba(230,230,230,0.6) !important;
+        }
 
 .user-reg, .user-login {
     width: 21%;
@@ -205,7 +209,7 @@ body, html {
 }
 
 .footer {
-    display: flex;
+    display: none;
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -214,7 +218,6 @@ body, html {
     font: normal normal normal 18px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans;
     bottom: 0;
     position: relative;
-    margin-top: 3%;
 }
 
 .discription-deposit {
@@ -240,13 +243,13 @@ body, html {
     font: normal normal normal 65px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans-serif;
 }
 
-    .deposit:hover {
+    .deposit:hover, .money-out:hover {
         -webkit-transform: scale(1.035);
         -ms-transform: scale(1.035);
         transform: scale(1.035);
     }
 
-.active-depost {
+.active-item {
     box-shadow: 0 0 60px rgba(230,230,230,0.6) !important;
 }
 
@@ -264,41 +267,38 @@ body, html {
     margin-top: 2%;
 }
 
-.activate-deposit, .money-in {
-    margin-top: 5%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+.label-money-in {
+    margin-top: 20% !important;
 }
 
-.input-append {
-    width: 40%;
-    display: flex;
-    flex-direction: row;
-    font: normal normal normal 16px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans;
+    .activate-deposit, .money-in {
+        margin-top: 5%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+.money-in {
+    margin-top: 3% !important;
 }
 
-    .input-append input:hover,
+    .input-append {
+        width: 40%;
+        display: flex;
+        flex-direction: row;
+        font: normal normal normal 16px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans;
+    }
+
+    .text-input:hover,
     .input-append button:hover {
         box-shadow: 0 0px 10px 0;
     }
 
-    .input-append input {
-        height: 40px;
-        width: 55%;
-        padding: 10px;
-        border-radius: 10px;
-        padding-right: 20px;
-        border: solid 2px;
-        background-color: rgba(230,230,230,0);
-        color: #CFD0D1;
-    }
-
     .input-append button {
         height: 40px;
-        width: 40%;
+        width: 43%;
         margin-left: -15px;
         border: solid 2px;
         border-color: #CFD0D1;
@@ -309,10 +309,10 @@ body, html {
         color: #CFD0D1;
     }
 
-    .input-append input:focus,
-    .input-append button:focus {
-        outline: none !important;
-    }
+        .text-input:focus,
+        .input-append button:focus {
+            outline: none !important;
+        }
 
 .block-menu {
     margin-top: 3%;
@@ -358,11 +358,11 @@ body, html {
         padding-left: 1.2%;
     }
 
-.menu ul {
-    list-style-type: none;
-    padding-left: 0px;
-    width: 100%;
-}
+    .menu ul {
+        list-style-type: none;
+        padding-left: 0px;
+        width: 100%;
+    }
 
     .menu a,
     .menu a:hover,
@@ -463,4 +463,50 @@ body, html {
 
 .success-deposit {
     border-bottom-color: palegreen;
+}
+
+.money-out {
+    width: 18%;
+    height: 250px;
+    border: 3px solid rgba(250,250,250, 0.7);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(250,250,250, 0.09);
+    margin-right: 3%;
+    cursor: pointer;
+}
+
+    .money-out img {
+        width: 100%;
+        padding: 1%;
+    }
+
+.discription-money-out {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5%;
+}
+
+.text-input {
+    height: 40px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    padding-right: 20px;
+    border: solid 2px;
+    background-color: rgba(230,230,230,0);
+    color: #CFD0D1;
+    font: normal normal normal 16px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans;
+}
+
+#purse-number {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1%;
 }

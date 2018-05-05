@@ -1,10 +1,14 @@
-﻿$(document).ready(function () {
+﻿import { isNumeric } from "./esm/popper-utils";
+
+$(document).ready(function () {
     $(".deposit").click(depositChoise);
+    $(".money-out").click(purseChoise);
     $("#reg-btn-ok").click(registrationUser);
     $("#log-btn-ok").click(loginUser);
     $("a[href='#user-panel']").click(scrollToUserPanel);
     $("#addNewDeposit").click(addNewDeposit);
     $("#addMoney").click(addMoney);
+    $("#moneyOutOrder").click(moneyOutOrder);
     $("#log-password").keypress((e) => {
         if (e.keyCode == 13) {
             loginUser();
@@ -12,6 +16,11 @@
     });
     autoScroll();
 });
+
+var AmountInterval = {
+    Min: 50,
+    Max: 50000
+}
 
 var MessageType = {
     Success : "success",
@@ -24,12 +33,18 @@ var MessageTemplate = {
     CreateDepositSuccess: "Депозит успешно добавлен",
     NotSelectedDeposit: "Выберите один из тарифов",
     NotEnoughMoney: "На вашем счете не достаточно средств",
-    IncorrectedAmount: "Некорректная сумма"
+    IncorrectedAmount: "Некорректная сумма",
+    OrderMoneyOut: "Заявка на вывод средств поставлена в обработку"
 }
 
 function depositChoise() {
-    $(".deposit").removeClass("active-depost");
-    $(this).addClass("active-depost");
+    $(".deposit").removeClass("active-item");
+    $(this).addClass("active-item");
+}
+
+function purseChoise() {
+    $(".money-out").removeClass("active-item");
+    $(this).addClass("active-item");
 }
 
 function registrationUser() {
@@ -100,7 +115,7 @@ function autoScroll() {
 }
 
 function addNewDeposit() {
-    let $depositActive = $(".deposit.active-depost");
+    let $depositActive = $(".deposit.active-item");
     let availableMoney = Number($("#availableMoney").attr("data-money"));
     let model = {
         Success : true,
@@ -133,7 +148,7 @@ function addNewDeposit() {
 function addMoney() {
     let amount = Number($("#input-moneyIn").val());
 
-    if (amount < 100 || amount > 50000) {
+    if (amount < AmountInterval.Min || amount > AmountInterval.Max) {
         showInfoMessage(MessageTemplate.IncorrectedAmount, MessageType.Info, "input-moneyIn")
     } else {
         $.post('/Home/MoneyIn', { Amount: amount }, successAddMoney);
@@ -153,6 +168,45 @@ function successAddNewDeposit(dataResult) {
         $("#availableMoney").attr("data-money", dataResult.Data);
         $("#availableMoney #userMoney").html(dataResult.Data);
         showInfoMessage(MessageTemplate.CreateDepositSuccess, MessageType.Success)
+    } else {
+        showInfoMessage(dataResult.ErrMessage, MessageType.Error)
+    }
+}
+
+function moneyOutOrder() {
+    let model = {
+        Success: true,
+        Message: ""
+    };
+
+    let numberPurce = $("#input-purce").val(); 
+    let amount = $(".money-in #input-purce").val();
+    let availableMoney = Number($("#availableMoney").attr("data-money"));
+
+    if (isNumeric(amount)) {
+        let amoutF = parseFloat(amount);
+        if (amoutF > availableMoney) {
+            model.Success = false;
+            model.Message = MessageTemplate.NotEnoughMoney;
+        } else if (amoutF < AmountInterval.Min) {
+            model.Success = false;
+            model.Message = MessageTemplate.IncorrectedAmount;
+        }
+    } else {
+        model.Success = false;
+        model.Message = MessageTemplate.IncorrectedAmount;
+    }
+
+    if (model.Success) {
+        $.post('/Home/MoneyOut', { NumberPurce: numberPurce, Amount = amount }, successMoneyOutOrder);
+    } else {
+        showInfoMessage(model.Message, MessageType.Error)
+    }
+}
+
+function successMoneyOutOrder(dataResult) {
+    if (dataResult.Success) {
+        showInfoMessage(MessageTemplate.OrderMoneyOut, MessageType.Success)
     } else {
         showInfoMessage(dataResult.ErrMessage, MessageType.Error)
     }

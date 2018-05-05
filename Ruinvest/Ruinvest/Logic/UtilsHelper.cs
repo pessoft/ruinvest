@@ -10,29 +10,39 @@ namespace Ruinvest.Logic
 {
     public static class UtilsHelper
     {
-        private static readonly string STORE_ID = "73265";
-        private static readonly string SICRET1 = "6k5rufnq";
-        private static readonly string SICRET2 = "vt736mrm";
-
-
-        public static string GetStoreId()
+        public static bool EqualsDate(this DateTime date1, DateTime date2)
         {
-            return STORE_ID;
+            return date1.Date.Equals(date2.Date);
+        }
+
+        public static bool IsValidAmount(this MoneyInModel amountData)
+        {
+            return IsValidAmount(amountData.Amount);
+        }
+
+        public static bool IsValidAmount(this MoneyOutModel moneyOutData)
+        {
+            return IsValidAmount(moneyOutData.Amount);
+        }
+
+        public static bool IsValidAmount(double money)
+        {
+            return money >= 100 && money <= 50000;
         }
 
         public static string GetSignatureMoneyIn(this OrderTopBalanceModel order)
         {
-            return GetMd5HashHelper(order, SICRET1);
+            return GetMd5HashHelper(order, FreeKassa.SICRET1);
         }
 
         public static string GetSignatureOrderNotify(this OrderTopBalanceModel order)
         {
-            return GetMd5HashHelper(order, SICRET2);
+            return GetMd5HashHelper(order, FreeKassa.SICRET2);
         }
 
         private static string GetMd5HashHelper(OrderTopBalanceModel order, string secret)
         {
-            var str = $"{STORE_ID}:{order.Amount}:{secret}:{order.OrderId}";
+            var str = $"{FreeKassa.STORE_ID}:{order.Amount}:{secret}:{order.OrderId}";
             using (MD5 md5Hash = MD5.Create())
             {
                 return GetMd5Hash(md5Hash, str);

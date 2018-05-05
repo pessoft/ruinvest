@@ -8,6 +8,7 @@ namespace Ruinvest.Logic
     public enum StatusOrder
     {
         InProgress = 0,
-        Finished = 1
+        Finished = 1,
+        Canceled = 2,
     }
 }

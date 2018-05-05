@@ -1,3 +1,43 @@
-﻿@{
+﻿@using Ruinvest.Logic
+@{
     Layout = "~/Views/Shared/_RuinvestBase.cshtml";
 }
+
+<div class="label-deposit revealator-once revealator-slideup revealator-duration30 revealator-delay1 ">
+    <div>
+        <span>Заявка на вывод средств</span>
+    </div>
+</div>
+
+<div class="my-money revealator-once revealator-slideup revealator-duration30 revealator-delay1 ">
+    <div id="availableMoney" data-money="@ViewBag.AvailableMone">
+        <span>доступные средства: </span>
+        <span id="userMoney">0</span>
+        <span> руб.</span>
+    </div>
+</div>
+
+<div class="discription-money-out revealator-once revealator-slidedown  revealator-duration15 revealator-delay15">
+    <div data-day="@MoneyOutEnum.Qiwi" class="money-out active-item">
+        <div class="money-out-logo">
+           <img src="~/Image/qiwi_logo.png"/>
+        </div>
+    </div>
+    <div data-day="@MoneyOutEnum.Yandex" class="money-out">
+        <div class="money-out-logo">
+            <img src="~/Image/yandex_money.png" />
+        </div>
+    </div>
+   
+</div>
+
+<div class="money-in">
+   <div id="purse-number">
+    <input type="text" placeholder="Введите номер кошелька" class="text-input" id="input-purce">
+   </div>
+    <div class="input-append">
+        <input type="text" placeholder="Укажите сумму вывода" class="text-input" id="input-amount">
+        <button type="submit" class="" id="moneyOutOrder">Создать заявку на вывод</button>
+    </div>
+</div>
+

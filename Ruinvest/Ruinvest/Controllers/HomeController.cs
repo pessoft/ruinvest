@@ -12,41 +12,81 @@ namespace Ruinvest.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly double MIN_AMOUNT = 50;
+        private readonly double MAX_AMOUNT = 50000;
+
         public ActionResult Index()
         {
+            //var vk = VKLogic.GetInstance();
+            //vk.SendMessage();
+
             return View();
         }
+
+        [HttpPost]
+        [Authorize]
+        public JsonResult MoneyOut(MoneyOutModel moneyOutData)
+        {
+            var result = new JSONResult();
+            var userId = AuthWrapper.GetUserIdByLogin(User.Identity.Name);
+            var availableMoney = DataWrapper.AvailableMoneyByUserId(userId);
+
+            if (moneyOutData.IsValidAmount() && moneyOutData.Amount <= availableMoney)
+            {
+                
+                var newOrder = new OrderMoneyOut()
+                {
+                    OrderId = Guid.NewGuid().ToString(),
+                    UserId = userId,
+                    Amount = moneyOutData.Amount,
+                    OrderDate = DateTime.Now,
+                    Status = StatusOrder.InProgress,
+                    TypePurce = moneyOutData.TypePurce
+                };
+
+                var isAddNewOrder = DataWrapper.AddNewOrderMoneyOut(newOrder);
+                var newBalanceUser = 0.0;
+
+                if (isAddNewOrder)
+                {
+                    DataWrapper.TakeMoneyByUserId(userId, moneyOutData.Amount);
+                    newBalanceUser = DataWrapper.AvailableMoneyByUserId(userId);
+                }
+                
+                result.SetIsSuccess(newBalanceUser);
+            }
+            else
+            {
+                result.SetNotSuccess(ErrorMessages.IncorrectAmount);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         [Authorize]
         public JsonResult MoneyIn(MoneyInModel amountData)
         {
             var result = new JSONResult();
 
-            if (amountData.Amount < 100 || amountData.Amount > 50000)
+            if (amountData.IsValidAmount())
+            {
+                var newOrder = new OrderTopBalanceModel()
+                {
+                    OrderId = Guid.NewGuid().ToString(),
+                    UserId = AuthWrapper.GetUserIdByLogin(User.Identity.Name),
+                    Amount = amountData.Amount,
+                    OrderDate = DateTime.Now,
+                    Status = StatusOrder.InProgress
+                };
+
+                DataWrapper.AddNewOrderTopBalance(newOrder);
+                result.SetIsSuccess(FreeKassa.GetUrlCash(newOrder));
+            }
+            else
             {
                 result.SetNotSuccess(ErrorMessages.IncorrectAmount);
             }
-
-            var newOrder = new OrderTopBalanceModel()
-            {
-                OrderId = Guid.NewGuid().ToString(),
-                UserId = AuthWrapper.GetUserIdByLogin(User.Identity.Name),
-                Amount = amountData.Amount,
-                OrderDate = DateTime.Now,
-                Status = StatusOrder.InProgress
-            };
-
-            //DataWrapper.AddNewOrderTopBalance(newOrder);
-            var signature = newOrder.GetSignatureMoneyIn();
-            var uri = @"http://www.free-kassa.ru/merchant/cash.php?";
-            var storeId = string.Format("m={0}&", UtilsHelper.GetStoreId());
-            var amountStr = string.Format("oa={0}&", newOrder.Amount);
-            var orderId = string.Format("o={0}&", newOrder.OrderId);
-            var sign = string.Format("s={0}", newOrder.GetSignatureMoneyIn());
-
-            var urlMoneyIn = string.Format("{0}{1}{2}{3}{4}", uri, storeId, amountStr, orderId, sign);
-
-            result.SetIsSuccess(urlMoneyIn);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -64,6 +104,7 @@ namespace Ruinvest.Controllers
             if (order.GetSignatureOrderNotify() == sign && order.Amount == amount)
             {
                 DataWrapper.MarkOrderTopBalanceFinished(order.OrderId);
+                FreeKassa.SendToCard(order);
             }
         }
 
@@ -86,7 +127,7 @@ namespace Ruinvest.Controllers
             var userId = AuthWrapper.GetUserIdByLogin(User.Identity.Name);
             var availableMoney = DataWrapper.AvailableMoneyByUserId(userId);
 
-            if ((availableMoney < model.DepositAmount) || (model.DepositAmount < 100 || model.DepositAmount > 50000))
+            if ((availableMoney < model.DepositAmount) || (model.DepositAmount < MIN_AMOUNT || model.DepositAmount > MAX_AMOUNT))
             {
                 if (availableMoney < model.DepositAmount)
                 {

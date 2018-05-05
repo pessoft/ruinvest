@@ -8,6 +8,68 @@ namespace Ruinvest.Logic
 {
     public class DataWrapper
     {
+        public static List<OrderMoneyOut> GetMoneyOrdersByDate(DateTime date)
+        {
+            var  resultData = new List<OrderMoneyOut>();
+            try
+            {
+                using (var db = new OrderMoneyOutContext())
+                {
+                    resultData = db.Orders.Where(p => p.OrderDate.EqualsDate(date)).ToList();
+                }
+            }
+            catch (Exception e)
+            {}
+
+            return resultData;
+        }
+
+        public static bool MarkOrderMoneyOutFinished(string orderId)
+        {
+            bool success = false;
+            try
+            {
+                using (var db = new OrderMoneyOutContext())
+                {
+                    var order = db.Orders.FirstOrDefault(p => p.OrderId == orderId);
+
+                    if (order != null)
+                    {
+                        order.Status = StatusOrder.Finished;
+                        order.ExecutionDate = DateTime.Now;
+                        db.SaveChanges();
+                        success = true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                success = false;
+            }
+
+            return success;
+        }
+
+        public static bool AddNewOrderMoneyOut(OrderMoneyOut order)
+        {
+            var success = false;
+            try
+            {
+                using (var db = new OrderMoneyOutContext())
+                {
+                    db.Orders.Add(order);
+                    db.SaveChanges();
+                    success = true;
+                }
+            }
+            catch (Exception e)
+            {
+                success = false;
+            }
+
+            return success;
+        }
+
         public static bool AddNewOrderTopBalance(OrderTopBalanceModel order)
         {
             var success = false;
