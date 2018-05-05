@@ -57,7 +57,15 @@ namespace Ruinvest.Controllers
             }
             else
             {
-                result.SetNotSuccess(ErrorMessages.IncorrectAmount);
+                if (moneyOutData.IsValidAmount())
+                {
+                    result.SetNotSuccess(ErrorMessages.IncorrectAmount);
+                }
+                else
+                {
+                    result.SetNotSuccess(ErrorMessages.NotEnoughMoney);
+                }
+
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -197,6 +205,12 @@ namespace Ruinvest.Controllers
         [Authorize]
         public ActionResult MoneyOut()
         {
+            var userId = AuthWrapper.GetUserIdByLogin(User.Identity.Name);
+
+            ViewBag.AvailableMone = DataWrapper.AvailableMoneyByUserId(userId);
+            ViewBag.HasOrder = DataWrapper.HasNonProcessedMoneyOut(userId);
+            ViewBag.Orders = DataWrapper.GetMoneyOrdersByUserId(userId);
+
             return View();
         }
 

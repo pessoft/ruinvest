@@ -8,9 +8,9 @@
     background-repeat: no-repeat;
     background-color: rgb(22, 32, 55);
     background-image: url("../Image/body-background.png");
-    position:relative;
-    display:flex;
-    flex-direction:column;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .body-background {
@@ -271,25 +271,25 @@ body, html {
     margin-top: 20% !important;
 }
 
-    .activate-deposit, .money-in {
-        margin-top: 5%;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-    }
+.activate-deposit, .money-in {
+    margin-top: 5%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
 
 .money-in {
     margin-top: 3% !important;
 }
 
-    .input-append {
-        width: 40%;
-        display: flex;
-        flex-direction: row;
-        font: normal normal normal 16px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans;
-    }
+.input-append {
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    font: normal normal normal 16px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans;
+}
 
     .text-input:hover,
     .input-append button:hover {
@@ -458,7 +458,7 @@ body, html {
 }
 
 .deposit-indicator {
-    padding-right: 5%;
+    margin-right: 5% !important;
 }
 
 .success-deposit {
@@ -509,4 +509,25 @@ body, html {
     display: flex;
     justify-content: center;
     margin-bottom: 1%;
+}
+
+.block-order-create {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 85%;
+    flex-direction: column;
+    padding-bottom:2%;
+    border-bottom: 2px solid;
+}
+
+.block-order-create .input-append {
+    width: 50%;
+}
+
+.history-order-money-out {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

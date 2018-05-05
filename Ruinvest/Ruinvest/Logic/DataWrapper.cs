@@ -8,6 +8,41 @@ namespace Ruinvest.Logic
 {
     public class DataWrapper
     {
+        public static List<OrderMoneyOut> GetMoneyOrdersByUserId(int userId)
+        {
+            var resultData = new List<OrderMoneyOut>();
+            try
+            {
+                using (var db = new OrderMoneyOutContext())
+                {
+                    resultData = db.Orders.Where(p => p.UserId == userId).ToList();
+                }
+            }
+            catch (Exception e)
+            { }
+
+            return resultData;
+        }
+
+        public static bool HasNonProcessedMoneyOut(int userId)
+        {
+            bool success = false;
+            try
+            {
+                using (var db = new OrderMoneyOutContext())
+                {
+                    var countOrder = db.Orders.Where(p => p.UserId == userId && p.Status == StatusOrder.InProgress).Count();
+                    success = countOrder > 0;
+                }
+            }
+            catch (Exception e)
+            {
+                success = false;
+            }
+
+            return success;
+        }
+
         public static List<OrderMoneyOut> GetMoneyOrdersByDate(DateTime date)
         {
             var  resultData = new List<OrderMoneyOut>();

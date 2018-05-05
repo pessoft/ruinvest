@@ -3,41 +3,126 @@
     Layout = "~/Views/Shared/_RuinvestBase.cshtml";
 }
 
-<div class="label-deposit revealator-once revealator-slideup revealator-duration30 revealator-delay1 ">
-    <div>
-        <span>Заявка на вывод средств</span>
-    </div>
-</div>
-
-<div class="my-money revealator-once revealator-slideup revealator-duration30 revealator-delay1 ">
-    <div id="availableMoney" data-money="@ViewBag.AvailableMone">
-        <span>доступные средства: </span>
-        <span id="userMoney">0</span>
-        <span> руб.</span>
-    </div>
-</div>
-
-<div class="discription-money-out revealator-once revealator-slidedown  revealator-duration15 revealator-delay15">
-    <div data-day="@MoneyOutEnum.Qiwi" class="money-out active-item">
-        <div class="money-out-logo">
-           <img src="~/Image/qiwi_logo.png"/>
+    
+        <div class="label-deposit revealator-once revealator-slideup revealator-duration30 revealator-delay1 ">
+            <div>
+                <span>Заявка на вывод средств</span>
+            </div>
         </div>
-    </div>
-    <div data-day="@MoneyOutEnum.Yandex" class="money-out">
-        <div class="money-out-logo">
-            <img src="~/Image/yandex_money.png" />
+@if(!ViewBag.HasOrder)
+{ 
+        <div class="block-order-create">
+            <div class="my-money revealator-once revealator-slideup revealator-duration30 revealator-delay1 ">
+                <div id="availableMoney" data-money="@ViewBag.AvailableMone">
+                    <span>доступные средства: </span>
+                    <span id="userMoney">0</span>
+                    <span> руб.</span>
+                </div>
+            </div>
+
+            <div class="discription-money-out revealator-once revealator-slidedown  revealator-duration15 revealator-delay15">
+                <div data-day="@MoneyOutEnum.Qiwi" class="money-out active-item">
+                    <div class="money-out-logo">
+                        <img src="~/Image/qiwi_logo.png" />
+                    </div>
+                </div>
+                <div data-day="@MoneyOutEnum.Yandex" class="money-out">
+                    <div class="money-out-logo">
+                        <img src="~/Image/yandex_money.png" />
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="money-in">
+                <div id="purse-number">
+                    <input type="text" placeholder="Введите номер кошелька" class="text-input" id="input-purce">
+                </div>
+                <div class="input-append">
+                    <input type="text" placeholder="Укажите сумму вывода" class="text-input" id="input-amount">
+                    <button type="submit" class="" id="moneyOutOrder">Создать заявку на вывод</button>
+                </div>
+            </div>
         </div>
-    </div>
-   
-</div>
 
-<div class="money-in">
-   <div id="purse-number">
-    <input type="text" placeholder="Введите номер кошелька" class="text-input" id="input-purce">
-   </div>
-    <div class="input-append">
-        <input type="text" placeholder="Укажите сумму вывода" class="text-input" id="input-amount">
-        <button type="submit" class="" id="moneyOutOrder">Создать заявку на вывод</button>
-    </div>
-</div>
+}
+<div class="history-order-money-out">
+    @if (ViewBag.Orders != null && ViewBag.Orders.Count > 0)
+    {
+        <div class="deposit-list">
+            <div class="deposit-item deposit-item-header ">
+                <div id="deposit-item-date" class="deposit-item-partial">
+                    <i class="glyphicon glyphicon-time"></i>
+                    <div>Дата</div>
+                </div>
+                <div id="deposit-item-amount" class="deposit-item-partial">
+                    <i class="glyphicon glyphicon-ruble"></i>
+                    <div>Кошелек</div>
+                </div>
+                <div id="deposit-item-percent" class="deposit-item-partial">
+                    <i class="glyphicon glyphicon-upload"></i>
+                    <div>Сумма вывода</div>
+                </div>
+                <div id="deposit-item-status" class="deposit-item-partial">
+                    <i class="glyphicon glyphicon-refresh"> </i>
+                    <div>Статус заявки</div>
+                </div>
+            </div>
 
+            @foreach (var order in ViewBag.Orders)
+            {
+
+                var successOrderObj = new
+                {
+                    Active = order.Status == StatusOrder.InProgress,
+                    ClassCss = order.Status == StatusOrder.Finished ? "success-deposit" : ""
+                };
+
+                <div class="deposit-item @successOrderObj.ClassCss ">
+                    <div id="deposit-item-date" class="deposit-item-partial">
+                        <div class="deposit-item-container">
+                            <div class="deposit-indicator">
+                                @if (successOrderObj.Active)
+                                {
+                                    <i class="glyphicon glyphicon-hourglass refresh"></i>
+                                }
+                                else
+                                {
+                                    <i class="glyphicon glyphicon-check"></i>
+                                }
+                            </div>
+                            <div class="deposit-period">
+                                <div class="deposit-item-start">
+                                    @order.OrderDate.ToString("d MMMM yyyy HH:mm")
+                                </div>
+                                <div class="deposit-item-end">
+                                   @* @order.ExecutionDate.ToString("d MMMM yyyy HH:mm")*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="deposit-item-purce" class="deposit-item-partial">
+                        <span>@order.TypePurce.ToString()</span>
+                    </div>
+                    <div id="deposit-item-amount" class="deposit-item-partial">
+                        <div class="deposit-item-start">
+                            @order.Amount руб.
+                        </div>
+                    </div>
+
+                    <div id="deposit-item-status" class="deposit-item-partial">
+                        @if (successOrderObj.Active)
+                        {
+                            <span>В обработке</span>
+                        }
+                        else
+                        {
+                            <span>Завершен</span>
+                        }
+                    </div>
+                </div>
+            }
+
+        </div>
+    }
+</div>

@@ -1,5 +1,4 @@
-﻿import { isNumeric } from "./esm/popper-utils";
-
+﻿
 $(document).ready(function () {
     $(".deposit").click(depositChoise);
     $(".money-out").click(purseChoise);
@@ -180,10 +179,10 @@ function moneyOutOrder() {
     };
 
     let numberPurce = $("#input-purce").val(); 
-    let amount = $(".money-in #input-purce").val();
+    let amount = $(".money-in #input-amount").val();
     let availableMoney = Number($("#availableMoney").attr("data-money"));
 
-    if (isNumeric(amount)) {
+    if (!isNaN(amount)) {
         let amoutF = parseFloat(amount);
         if (amoutF > availableMoney) {
             model.Success = false;
@@ -198,7 +197,7 @@ function moneyOutOrder() {
     }
 
     if (model.Success) {
-        $.post('/Home/MoneyOut', { NumberPurce: numberPurce, Amount = amount }, successMoneyOutOrder);
+        $.post('/Home/MoneyOut', { NumberPurce: numberPurce, Amount: amount }, successMoneyOutOrder);
     } else {
         showInfoMessage(model.Message, MessageType.Error)
     }
@@ -207,6 +206,11 @@ function moneyOutOrder() {
 function successMoneyOutOrder(dataResult) {
     if (dataResult.Success) {
         showInfoMessage(MessageTemplate.OrderMoneyOut, MessageType.Success)
+        $("#availableMoney").attr("data-money", dataResult.Data)
+
+        $(".block-order-create").fadeOut(1000, function () {
+            $(".block-order-create").remove();
+        });
     } else {
         showInfoMessage(dataResult.ErrMessage, MessageType.Error)
     }
