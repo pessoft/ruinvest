@@ -10,6 +10,7 @@ namespace Ruinvest.Models
     {
         public int Id { get; set; }
         public string OrderId { get; set; }
+        public string NumberPurce { get; set; }
         public int UserId { get; set; }
         public double Amount { get; set; }
         public StatusOrder Status { get; set; }

@@ -10,6 +10,20 @@ namespace Ruinvest.Logic
 {
     public static class UtilsHelper
     {
+        public static bool IsValid(this RegistrationModel model)
+        {
+            return !string.IsNullOrEmpty(model.FirstName)
+                && !string.IsNullOrEmpty(model.SecondName)
+                && !string.IsNullOrEmpty(model.PhoneNumber)
+                && !string.IsNullOrEmpty(model.Password);
+        }
+
+        public static bool IsValid(this LoginModel model)
+        {
+            return !string.IsNullOrEmpty(model.PhoneNumber)
+                && !string.IsNullOrEmpty(model.Password);
+        }
+        
         public static bool EqualsDate(this DateTime date1, DateTime date2)
         {
             return date1.Date.Equals(date2.Date);

@@ -210,6 +210,7 @@ namespace Ruinvest.Controllers
             ViewBag.AvailableMone = DataWrapper.AvailableMoneyByUserId(userId);
             ViewBag.HasOrder = DataWrapper.HasNonProcessedMoneyOut(userId);
             ViewBag.Orders = DataWrapper.GetMoneyOrdersByUserId(userId);
+            ViewBag.PhoneNumber = User.Identity.Name;
 
             return View();
         }
@@ -226,7 +227,7 @@ namespace Ruinvest.Controllers
         public JsonResult Registration(RegistrationModel model)
         {
             JSONResult accountResult = new JSONResult();
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && model.IsValid())
             {
                 if (!AuthWrapper.UserExist(model.PhoneNumber))
                 {
@@ -261,7 +262,14 @@ namespace Ruinvest.Controllers
             }
             else
             {
-                accountResult.SetNotSuccess(ErrorMessages.UnknownError);
+                if (!model.IsValid())
+                {
+                    accountResult.SetNotSuccess(ErrorMessages.NotFullDataRegistration);
+                }
+                else
+                {
+                    accountResult.SetNotSuccess(ErrorMessages.UnknownError);
+                }
             }
 
             return Json(accountResult, JsonRequestBehavior.AllowGet);
@@ -272,7 +280,7 @@ namespace Ruinvest.Controllers
         {
             JSONResult accountResult = new JSONResult();
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && model.IsValid())
             {
                 if (AuthWrapper.LoginUser(model.PhoneNumber, model.Password))
                 {
@@ -286,7 +294,14 @@ namespace Ruinvest.Controllers
             }
             else
             {
-                accountResult.SetNotSuccess(ErrorMessages.UnknownError);
+                if (!model.IsValid())
+                {
+                    accountResult.SetNotSuccess(ErrorMessages.NotFullDataLogin);
+                }
+                else
+                {
+                    accountResult.SetNotSuccess(ErrorMessages.UnknownError);
+                }
             }
 
             return Json(accountResult, JsonRequestBehavior.AllowGet);

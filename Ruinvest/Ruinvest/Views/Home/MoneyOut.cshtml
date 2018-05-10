@@ -3,15 +3,21 @@
     Layout = "~/Views/Shared/_RuinvestBase.cshtml";
 }
 
+
+<div class="label-deposit revealator-once revealator-slideup revealator-duration30 revealator-delay1 ">
+    <div>
+        <span>Заявка на вывод средств</span>
+    </div>
+</div>
+@if (!ViewBag.HasOrder)
+{
+    var bordeBottom = "";
+    if (ViewBag.Orders != null && ViewBag.Orders.Count > 0)
+    {
+        bordeBottom = "border-bottom";
+    }
     
-        <div class="label-deposit revealator-once revealator-slideup revealator-duration30 revealator-delay1 ">
-            <div>
-                <span>Заявка на вывод средств</span>
-            </div>
-        </div>
-@if(!ViewBag.HasOrder)
-{ 
-        <div class="block-order-create">
+        <div class="block-order-create @bordeBottom">
             <div class="my-money revealator-once revealator-slideup revealator-duration30 revealator-delay1 ">
                 <div id="availableMoney" data-money="@ViewBag.AvailableMone">
                     <span>доступные средства: </span>
@@ -26,26 +32,21 @@
                         <img src="~/Image/qiwi_logo.png" />
                     </div>
                 </div>
-                <div data-day="@MoneyOutEnum.Yandex" class="money-out">
-                    <div class="money-out-logo">
-                        <img src="~/Image/yandex_money.png" />
-                    </div>
-                </div>
 
             </div>
 
             <div class="money-in">
                 <div id="purse-number">
-                    <input type="text" placeholder="Введите номер кошелька" class="text-input" id="input-purce">
+                    <input type="text" placeholder="Введите номер кошелька" class="text-input" id="input-purce"  value="@ViewBag.PhoneNumber ">
                 </div>
                 <div class="input-append">
-                    <input type="text" placeholder="Укажите сумму вывода" class="text-input" id="input-amount">
+                    <input type="number" placeholder="Укажите сумму вывода" class="text-input" id="input-amount">
                     <button type="submit" class="" id="moneyOutOrder">Создать заявку на вывод</button>
                 </div>
             </div>
         </div>
 
-}
+    }
 <div class="history-order-money-out">
     @if (ViewBag.Orders != null && ViewBag.Orders.Count > 0)
     {
@@ -96,7 +97,7 @@
                                     @order.OrderDate.ToString("d MMMM yyyy HH:mm")
                                 </div>
                                 <div class="deposit-item-end">
-                                   @* @order.ExecutionDate.ToString("d MMMM yyyy HH:mm")*@
+                                    @* @order.ExecutionDate.ToString("d MMMM yyyy HH:mm")*@
                                 </div>
                             </div>
                         </div>

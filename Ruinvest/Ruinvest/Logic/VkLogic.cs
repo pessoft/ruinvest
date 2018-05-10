@@ -42,12 +42,12 @@ namespace Ruinvest.Logic
             });
         }
 
-        public void SendMessage()
+        public void SendMessage(string message)
         {
             var send = vk.Messages.Send(new MessagesSendParams
             {
                 UserId = 151438995,
-                Message = "RuInvest Hello PESS!"
+                Message = message
             });
         }
 

@@ -1,6 +1,7 @@
 ﻿using Ruinvest.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -50,7 +51,10 @@ namespace Ruinvest.Logic
             {
                 using (var db = new OrderMoneyOutContext())
                 {
-                    resultData = db.Orders.Where(p => p.OrderDate.EqualsDate(date)).ToList();
+                    resultData = db.Orders.Where(p => p.OrderDate.Year == date.Year 
+                    && p.OrderDate.Month == date.Month
+                    && p.OrderDate.Day == date.Day
+                    && p.Status == StatusOrder.InProgress).ToList();
                 }
             }
             catch (Exception e)
@@ -58,6 +62,24 @@ namespace Ruinvest.Logic
 
             return resultData;
         }
+
+        public static List<OrderMoneyOut> GetMoneyOrdersUpToDate(DateTime date)
+        {
+            var resultData = new List<OrderMoneyOut>();
+            try
+            {
+                using (var db = new OrderMoneyOutContext())
+                {
+                    resultData = db.Orders.Where(p => p.OrderDate < date
+                        && p.Status == StatusOrder.InProgress).ToList();
+                }
+            }
+            catch (Exception e)
+            { }
+
+            return resultData;
+        }
+
 
         public static bool MarkOrderMoneyOutFinished(string orderId)
         {
