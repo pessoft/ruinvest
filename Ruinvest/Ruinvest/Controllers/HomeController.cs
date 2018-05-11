@@ -131,7 +131,7 @@ namespace Ruinvest.Controllers
             var userId = AuthWrapper.GetUserIdByLogin(User.Identity.Name);
             var availableMoney = DataWrapper.AvailableMoneyByUserId(userId);
 
-            if ((availableMoney < model.DepositAmount) || (model..DepositAmount < MIN_AMOUNT || model.DepositAmount > MAX_AMOUNT))
+            if ((availableMoney < model.DepositAmount) || (model.DepositAmount < MIN_AMOUNT || model.DepositAmount > MAX_AMOUNT))
             {
                 if (availableMoney < model.DepositAmount)
                 {
