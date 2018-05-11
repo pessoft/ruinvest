@@ -171,7 +171,7 @@ function addNewDeposit() {
 
         $.post('/Home/CreateDeposit', data, successCallBack(successAddNewDeposit, loader));
     } else {
-        showInfoMessage(model.Message, MessageType.Info, "input-amount")
+        showInfoMessage(model.Message, MessageType.Info)
     }
 }
 
