@@ -128,7 +128,5 @@ $(function () {
 	}
 
 	$(window).bind('scroll resize load ready ', changedContenWindow);
-
 	$(".body-background").bind('scroll resize load ready ', changedContenWindow);
-	
 });

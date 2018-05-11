@@ -268,7 +268,7 @@ body, html {
 }
 
 .label-money-in {
-    margin-top: 20% !important;
+    margin-top: 16% !important;
 }
 
 .activate-deposit, .money-in {
@@ -479,7 +479,7 @@ body, html {
 }
 
 .money-out {
-    width: 32%;
+    width: 34%;
     height: 250px;
     border: 3px solid rgba(250,250,250, 0.7);
     border-radius: 10px;
@@ -555,4 +555,16 @@ input::-webkit-inner-spin-button {
 
 .border-bottom {
     border-bottom: 2px solid;
+}
+
+#input-purce {
+    text-align:center;
+}
+
+.money-in .text-input {
+    font: normal normal normal 20px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans
+}
+
+.margin-top15 {
+    margin-top:15%;
 }

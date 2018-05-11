@@ -17,9 +17,6 @@ namespace Ruinvest.Controllers
 
         public ActionResult Index()
         {
-            //var vk = VKLogic.GetInstance();
-            //vk.SendMessage();
-
             return View();
         }
 
@@ -126,7 +123,6 @@ namespace Ruinvest.Controllers
             return View();
         }
 
-        //to do не забыть в дальнейшем проверить наличие средств на счету
         [HttpPost]
         [Authorize]
         public JsonResult CreateDeposit(CreateDepositModel model)
@@ -135,7 +131,7 @@ namespace Ruinvest.Controllers
             var userId = AuthWrapper.GetUserIdByLogin(User.Identity.Name);
             var availableMoney = DataWrapper.AvailableMoneyByUserId(userId);
 
-            if ((availableMoney < model.DepositAmount) || (model.DepositAmount < MIN_AMOUNT || model.DepositAmount > MAX_AMOUNT))
+            if ((availableMoney < model.DepositAmount) || (model..DepositAmount < MIN_AMOUNT || model.DepositAmount > MAX_AMOUNT))
             {
                 if (availableMoney < model.DepositAmount)
                 {
@@ -187,8 +183,7 @@ namespace Ruinvest.Controllers
             var userId = AuthWrapper.GetUserIdByLogin(User.Identity.Name);
             var deposits = DataWrapper.GetDepostByUserId(userId);
 
-            deposits = deposits
-                .OrderByDescending(p => p.Status)
+            deposits = deposits?.OrderByDescending(p => p.Status)
                 .ThenBy(p => p.StartDate)
                 .ToList();
             ViewBag.Deposits = deposits;
@@ -248,7 +243,7 @@ namespace Ruinvest.Controllers
 
                         DataWrapper.AddCashUser(userId);
                         FormsAuthentication.SetAuthCookie(model.PhoneNumber, true);
-                        accountResult.SetIsSuccess();
+                        accountResult.SetIsSuccess(GetUrlRedirect(model.PhoneNumber));
                     }
                     else
                     {
@@ -275,6 +270,16 @@ namespace Ruinvest.Controllers
             return Json(accountResult, JsonRequestBehavior.AllowGet);
         }
 
+        private string GetUrlRedirect(string login)
+        {
+            var userId = AuthWrapper.GetUserIdByLogin(login);
+            var deposits = DataWrapper.GetDepostByUserId(userId);
+            var depositCount = deposits.Count;
+
+            return depositCount == 0 ? "/Home/CreateDeposit" : "/Home/Deposits";
+        }
+
+
         [HttpPost]
         public JsonResult Login(LoginModel model)
         {
@@ -285,7 +290,8 @@ namespace Ruinvest.Controllers
                 if (AuthWrapper.LoginUser(model.PhoneNumber, model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(model.PhoneNumber, true);
-                    accountResult.SetIsSuccess();
+                   
+                    accountResult.SetIsSuccess(GetUrlRedirect(model.PhoneNumber));
                 }
                 else
                 {

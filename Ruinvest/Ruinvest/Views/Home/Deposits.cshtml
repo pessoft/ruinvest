@@ -5,7 +5,16 @@
     Layout = "~/Views/Shared/_RuinvestBase.cshtml";
 }
 
-<div class="label-deposits revealator-once revealator-zoomin revealator-duration30 revealator-delay5 ">
+@{ 
+    var marginClass = "margin-top15";
+
+    if (ViewBag.Deposits != null && ViewBag.Deposits.Count > 0)
+    {
+        marginClass = "";
+    }
+}
+
+<div class="label-deposits revealator-once revealator-slideup revealator-delay5 @marginClass">
     <div>
         @if (ViewBag.Deposits != null && ViewBag.Deposits.Count > 0)
         {
@@ -21,7 +30,7 @@
 
 @if (ViewBag.Deposits != null && ViewBag.Deposits.Count > 0)
 {
-    <div class="deposit-list">
+    <div class="deposit-list revealator-once revealator-slidedown revealator-delay5">
         <div class="deposit-item deposit-item-header ">
             <div id="deposit-item-date" class="deposit-item-partial">
                 <i class="glyphicon glyphicon-hourglass"></i>

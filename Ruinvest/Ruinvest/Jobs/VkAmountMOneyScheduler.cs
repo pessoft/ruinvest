@@ -18,7 +18,7 @@ namespace Ruinvest.Jobs
 
             ITrigger trigger = TriggerBuilder.Create()
                 .WithIdentity("trigger1", "group1")
-                .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(23, 17))
+                .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(6, 00))
                 .ForJob(job)
                 .Build();
 

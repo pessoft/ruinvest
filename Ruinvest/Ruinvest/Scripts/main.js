@@ -14,6 +14,8 @@ $(document).ready(function () {
         }
     });
     autoScroll();
+
+    $(window).trigger("load")//финт жопой
 });
 
 var AmountInterval = {
@@ -88,14 +90,14 @@ function loginUser() {
 
     let loader = new Loader($("#log-btn-ok"));
     loader.ToggleLoader()
-    $.post($(this).data('request-url'), data, successCallBack(successAccount, loader));
+    $.post($("#log-btn-ok").data('request-url'), data, successCallBack(successAccount, loader));
 }
 
 function successAccount(dataResult, loader) {
     loader.ToggleLoader();
 
     if (dataResult.Success) {
-        document.location.href = '/Home/Deposits';
+        window.location.replace(dataResult.Data);
     } else {
         showInfoMessage(dataResult.ErrMessage, MessageType.Error)
     }
@@ -190,7 +192,7 @@ function successAddMoney(dataResult, loader) {
     loader.ToggleLoader();
 
     if (dataResult.Success) {
-        window.location.href = dataResult.Data;
+        window.location.replace(dataResult.Data);
     } else {
         showInfoMessage(dataResult.ErrMessage, MessageType.Error)
     }
