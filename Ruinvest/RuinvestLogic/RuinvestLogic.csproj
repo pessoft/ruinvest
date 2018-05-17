@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{38CD6C0F-C05B-4043-9B76-198EAF16FFFD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RuinvestLogic</RootNamespace>
+    <AssemblyName>RuinvestLogic</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="QiwiApi, Version=1.0.6452.28799, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QiwiApi.1.4.0\lib\netstandard1.1\QiwiApi.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Logic\AuthWrapper.cs" />
+    <Compile Include="Logic\DataWrapper.cs" />
+    <Compile Include="Logic\FreeKassa.cs" />
+    <Compile Include="Logic\MoneyOutEnum.cs" />
+    <Compile Include="Logic\ProfitValue.cs" />
+    <Compile Include="Logic\QiwiWallet .cs" />
+    <Compile Include="Logic\Rates.cs" />
+    <Compile Include="Logic\StatusDeposit.cs" />
+    <Compile Include="Logic\StatusOrder.cs" />
+    <Compile Include="Logic\UtilsHelper.cs" />
+    <Compile Include="Models\CreateDepositModel.cs" />
+    <Compile Include="Models\DBStringConnections.cs" />
+    <Compile Include="Models\Deposit.cs" />
+    <Compile Include="Models\DepositContext.cs" />
+    <Compile Include="Models\ErrorMessages.cs" />
+    <Compile Include="Models\JSONResult.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\MoneyInModel.cs" />
+    <Compile Include="Models\MoneyOutModel.cs" />
+    <Compile Include="Models\OrderMoneyOut.cs" />
+    <Compile Include="Models\OrderMoneyOutContext.cs" />
+    <Compile Include="Models\OrderTopBalanceContext.cs" />
+    <Compile Include="Models\OrderTopBalanceModel.cs" />
+    <Compile Include="Models\RegistrationModel.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserCashAccountContext.cs" />
+    <Compile Include="Models\UserCashAccountModel.cs" />
+    <Compile Include="Models\UserContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

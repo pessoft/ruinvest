@@ -1,5 +1,5 @@
-﻿using Ruinvest.Logic;
-using Ruinvest.Models;
+﻿using RuinvestLogic.Logic;
+using RuinvestLogic.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -146,7 +146,7 @@ namespace Ruinvest.Controllers
             {
                 var currentDate = DateTime.Now;
                 var percent = model.Rate == Rates.Month ? ProfitValue.HighPercent : ProfitValue.BasePercent;
-                model.Rate = model.Rate == Logic.Rates.Unknown ? Logic.Rates.OneDay : model.Rate;
+                model.Rate = model.Rate == Rates.Unknown ? Rates.OneDay : model.Rate;
 
                 var deposit = new Deposit()
                 {
