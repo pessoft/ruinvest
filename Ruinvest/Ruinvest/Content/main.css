@@ -288,6 +288,7 @@ body, html {
     width: 40%;
     display: flex;
     flex-direction: row;
+    justify-content: center;
     font: normal normal normal 16px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans;
 }
 
