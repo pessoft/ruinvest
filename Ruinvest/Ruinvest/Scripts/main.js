@@ -279,3 +279,7 @@ class Loader {
         }
     }
 }
+
+function HideModalInformation() {
+    $("#modal-information").slideToggle("slow");
+}

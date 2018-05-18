@@ -568,3 +568,102 @@ input::-webkit-inner-spin-button {
 .margin-top15 {
     margin-top:15%;
 }
+
+.modal-form {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 99999999;
+    display: flex;
+    justify-content: center;
+    display: none;
+}
+
+.modal-background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgba(25,25,25,0.9);
+    filter: blur(130px);
+    z-index: 999999999;
+}
+
+.modal-message {
+    position: absolute;
+    left:25%;
+    width: 55%;
+    height: 50%;
+    background: rgba(250,250,250,1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    z-index: 999999999;
+    top: 30%;
+    box-shadow: 5px 10px 20px;
+    flex-direction: column;
+}
+
+.modal-title-container {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    position: relative;
+    align-self: flex-start;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid;
+    flex-direction: row;
+    font: normal normal normal 20px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans;
+    color: rgba(22, 32, 55,0.5);
+}
+
+.modal-title-text {
+    display: flex;
+    width: 90%;
+}
+
+.modate-title-close {
+    cursor: pointer;
+}
+
+.modal-title-text i {
+    display: flex;
+    margin-top: 2px;
+    margin-right: 3px;
+}
+
+.modal-content-container {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font: normal normal normal 20px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans;
+    color: #3d464e;
+}
+
+.modal-footer-container {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    align-self: flex-end;
+    align-content: center;
+    align-items: center;
+    justify-content: flex-end;
+    border-top: 2px solid;
+    font: normal normal normal 20px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans;
+    color: rgba(22, 32, 55,0.5);
+}
+
+.modal-ok {
+    display: flex;
+    width: 95px;
+    height: 35px;
+    text-align: center;
+    justify-content: center;
+    margin-right: 3%;
+    background: rgba(22, 32, 55,0.5);
+    color: #e8eaec;
+    border: none;
+}

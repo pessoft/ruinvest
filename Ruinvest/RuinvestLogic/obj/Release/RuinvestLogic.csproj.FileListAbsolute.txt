@@ -1,0 +1,15 @@
+E:\Dev\ruinvest\Ruinvest\RuinvestLogic\bin\Release\RuinvestLogic.dll.config
+E:\Dev\ruinvest\Ruinvest\RuinvestLogic\bin\Release\RuinvestLogic.dll
+E:\Dev\ruinvest\Ruinvest\RuinvestLogic\bin\Release\RuinvestLogic.pdb
+E:\Dev\ruinvest\Ruinvest\RuinvestLogic\bin\Release\EntityFramework.dll
+E:\Dev\ruinvest\Ruinvest\RuinvestLogic\bin\Release\EntityFramework.SqlServer.dll
+E:\Dev\ruinvest\Ruinvest\RuinvestLogic\bin\Release\Newtonsoft.Json.dll
+E:\Dev\ruinvest\Ruinvest\RuinvestLogic\bin\Release\QiwiApi.dll
+E:\Dev\ruinvest\Ruinvest\RuinvestLogic\bin\Release\EntityFramework.xml
+E:\Dev\ruinvest\Ruinvest\RuinvestLogic\bin\Release\EntityFramework.SqlServer.xml
+E:\Dev\ruinvest\Ruinvest\RuinvestLogic\bin\Release\Newtonsoft.Json.xml
+E:\Dev\ruinvest\Ruinvest\RuinvestLogic\obj\Release\RuinvestLogic.csprojResolveAssemblyReference.cache
+E:\Dev\ruinvest\Ruinvest\RuinvestLogic\obj\Release\RuinvestLogic.csproj.CoreCompileInputs.cache
+E:\Dev\ruinvest\Ruinvest\RuinvestLogic\obj\Release\RuinvestLogic.csproj.CopyComplete
+E:\Dev\ruinvest\Ruinvest\RuinvestLogic\obj\Release\RuinvestLogic.dll
+E:\Dev\ruinvest\Ruinvest\RuinvestLogic\obj\Release\RuinvestLogic.pdb

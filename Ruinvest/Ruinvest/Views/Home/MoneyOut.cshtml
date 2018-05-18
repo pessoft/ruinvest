@@ -3,6 +3,12 @@
     Layout = "~/Views/Shared/_RuinvestBase.cshtml";
 }
 
+<script>
+    $(document).ready(function () {
+        setTimeout(function () { $("#modal-information").slideToggle("slow"); }, 1500);
+        
+    });
+</script>
 
 <div class="label-deposit revealator-once revealator-slideup revealator-duration30 revealator-delay1 ">
     <div>
@@ -127,3 +133,31 @@
         </div>
     }
 </div>
+<div id="modal-information" class="modal-form" style=""display:none>
+<div class="modal-background"></div>
+<div class="modal-message">
+    <div class="modal-title-container">
+        <div class="modal-title-text">
+            <i class="glyphicon glyphicon-info-sign"></i>
+            <div>
+                Информания о выводе средств
+            </div>
+        </div>
+        <div class="modate-title-close" onclick="HideModalInformation();">
+            <i class="glyphicon glyphicon-remove"></i>
+        </div>
+    </div>
+    <div class="modal-content-container">
+        <div class="content-text">
+            Мы торгуем на специальных торговых площадках,<br> 
+            где вывод средств осуществляется в период до 5 дней.<br>
+            В связи с этим ваши заявки на вывод средств <br>
+            будут обрабатываться от 1 до 5 рабочих дней.<br>
+        </div>
+    </div>
+    <div class="modal-footer-container">
+        <button class="modal-ok" onclick="HideModalInformation();">OK</button>
+    </div>
+</div>
+</div>
+

@@ -8,6 +8,7 @@ E:\Dev\ruinvest\Ruinvest\RuinvestLogic\bin\Debug\QiwiApi.dll
 E:\Dev\ruinvest\Ruinvest\RuinvestLogic\bin\Debug\EntityFramework.xml
 E:\Dev\ruinvest\Ruinvest\RuinvestLogic\bin\Debug\EntityFramework.SqlServer.xml
 E:\Dev\ruinvest\Ruinvest\RuinvestLogic\bin\Debug\Newtonsoft.Json.xml
+E:\Dev\ruinvest\Ruinvest\RuinvestLogic\obj\Debug\RuinvestLogic.csprojResolveAssemblyReference.cache
 E:\Dev\ruinvest\Ruinvest\RuinvestLogic\obj\Debug\RuinvestLogic.csproj.CoreCompileInputs.cache
 E:\Dev\ruinvest\Ruinvest\RuinvestLogic\obj\Debug\RuinvestLogic.csproj.CopyComplete
 E:\Dev\ruinvest\Ruinvest\RuinvestLogic\obj\Debug\RuinvestLogic.dll
