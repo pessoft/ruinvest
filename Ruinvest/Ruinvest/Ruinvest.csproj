@@ -320,6 +320,10 @@
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.8.2.4717\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\RuinvestJob\RuinvestJob\RuinvestUtils\RuinvestUtils.csproj">
+      <Project>{73d1aae6-9dc7-4908-9338-9f2e34ea8920}</Project>
+      <Name>RuinvestUtils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RuinvestLogic\RuinvestLogic.csproj">
       <Project>{38cd6c0f-c05b-4043-9b76-198eaf16fffd}</Project>
       <Name>RuinvestLogic</Name>

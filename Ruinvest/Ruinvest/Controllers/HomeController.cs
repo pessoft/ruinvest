@@ -108,6 +108,11 @@ namespace Ruinvest.Controllers
 
             if (order.GetSignatureOrderNotify() == sign && order.Amount == amount)
             {
+                var message = $"Пополнение<br>" +
+                              $"Дата:{DateTime.Now.ToString()}<br>" +
+                              $"Пользователь:{order.UserId}<br>" +
+                              $"Сумма:{amount}<br>";
+                RuinvestUtils.VK.VKLogic.GetInstance().SendMessage(message);
                 DataWrapper.MarkOrderTopBalanceFinished(order.OrderId);
                 FreeKassa.SendToCard(order);
             }

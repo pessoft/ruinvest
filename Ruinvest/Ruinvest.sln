@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ruinvest", "Ruinvest\Ruinve
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuinvestLogic", "RuinvestLogic\RuinvestLogic.csproj", "{38CD6C0F-C05B-4043-9B76-198EAF16FFFD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuinvestUtils", "..\..\RuinvestJob\RuinvestJob\RuinvestUtils\RuinvestUtils.csproj", "{73D1AAE6-9DC7-4908-9338-9F2E34EA8920}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{38CD6C0F-C05B-4043-9B76-198EAF16FFFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38CD6C0F-C05B-4043-9B76-198EAF16FFFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38CD6C0F-C05B-4043-9B76-198EAF16FFFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73D1AAE6-9DC7-4908-9338-9F2E34EA8920}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73D1AAE6-9DC7-4908-9338-9F2E34EA8920}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73D1AAE6-9DC7-4908-9338-9F2E34EA8920}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73D1AAE6-9DC7-4908-9338-9F2E34EA8920}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
