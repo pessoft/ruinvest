@@ -77,7 +77,10 @@
                 <input type="text" placeholder="Фамилия" id="reg-first-name" />
                 <input type="text" placeholder="Имя" id="reg-second-name" />
                 <input type="text" placeholder="Номер телефона" id="reg-phone-number" />
-                <input type="password" placeholder="Пароль" id="reg-password" />
+                <div class="password-control">
+                    <input type="password" placeholder="Пароль" id="reg-password" />
+                    <div class="password-eye"><i class="glyphicon glyphicon-eye-open"></i></div>
+                </div>
                 <button class="registred btn btn-primary" id="reg-btn-ok" data-request-url="@Url.Action("Registration", "Home")">зарегистрироваться</button>
             </div>
         </div>

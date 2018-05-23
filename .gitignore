@@ -416,3 +416,5 @@ Ruinvest/RuinvestLogic/obj/Release/RuinvestLogic.csproj.FileListAbsolute.txt
 Ruinvest/RuinvestLogic/obj/Release/RuinvestLogic.csprojResolveAssemblyReference.cache
 Ruinvest/RuinvestLogic/obj/Release/RuinvestLogic.dll
 Ruinvest/RuinvestLogic/obj/Release/RuinvestLogic.pdb
+Ruinvest/Ruinvest/bin/NLog.config
+Ruinvest/Ruinvest/obj/Release/Package/PackageTmp/bin/NLog.config

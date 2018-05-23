@@ -8,6 +8,7 @@ $(document).ready(function () {
     $("#addNewDeposit").click(addNewDeposit);
     $("#addMoney").click(addMoney);
     $("#moneyOutOrder").click(moneyOutOrder);
+    $(".password-eye").click(toggleShowPassword);
     $("#log-password").keypress((e) => {
         if (e.keyCode == 13) {
             loginUser();
@@ -282,4 +283,18 @@ class Loader {
 
 function HideModalInformation() {
     $("#modal-information").slideToggle("slow");
+}
+
+function toggleShowPassword() {
+    var e = $(".password-eye i");
+
+    if (e.hasClass("glyphicon-eye-open")) {
+        e.removeClass("glyphicon-eye-open");
+        e.addClass("glyphicon-eye-close");
+        $("#reg-password").attr('type', 'text');
+    } else if(e.hasClass("glyphicon-eye-close")) {
+        e.removeClass("glyphicon-eye-close");
+        e.addClass("glyphicon-eye-open");
+        $("#reg-password").attr('type', 'password');
+    }
 }

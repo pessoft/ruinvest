@@ -668,3 +668,25 @@ input::-webkit-inner-spin-button {
     color: #e8eaec;
     border: none;
 }
+
+.password-control {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    background-color: transparent;
+    border-radius: 5px;
+    width: 100%;
+    position: relative;
+}
+.password-control  input{
+    padding-right: 35px;
+}
+
+.password-eye {
+    position: absolute;
+    right: 10px;
+    font-size: 20px;
+    margin-top: -1px;
+    cursor:pointer;
+}
