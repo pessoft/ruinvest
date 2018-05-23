@@ -46,19 +46,19 @@ namespace RuinvestLogic.Logic
 
         public static List<OrderMoneyOut> GetMoneyOrdersByDate(DateTime date)
         {
-            var  resultData = new List<OrderMoneyOut>();
+            var resultData = new List<OrderMoneyOut>();
             try
             {
                 using (var db = new OrderMoneyOutContext())
                 {
-                    resultData = db.Orders.Where(p => p.OrderDate.Year == date.Year 
+                    resultData = db.Orders.Where(p => p.OrderDate.Year == date.Year
                     && p.OrderDate.Month == date.Month
                     && p.OrderDate.Day == date.Day
                     && p.Status == StatusOrder.InProgress).ToList();
                 }
             }
             catch (Exception e)
-            {}
+            { }
 
             return resultData;
         }
@@ -79,6 +79,36 @@ namespace RuinvestLogic.Logic
 
             return resultData;
         }
+
+        public static void UpdateOrderMoneyOutFinished(List<OrderMoneyOut> data)
+        {
+            try
+            {
+                var ids = data.Select(p => p.OrderId);
+                using (var db = new OrderMoneyOutContext())
+                {
+                    var orders = db.Orders.Where(p => ids.Contains(p.OrderId));
+
+                    foreach (var item in data)
+                    {
+                        var order = orders.FirstOrDefault(p => p.OrderId == item.OrderId);
+
+                        if (order != null)
+                        {
+                            order.AmountOut = item.AmountOut;
+                        }
+                    }
+                    if (orders != null)
+                    {
+                        db.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+            }
+        }
+
 
 
         public static bool MarkOrderMoneyOutFinished(string orderId)
@@ -314,7 +344,7 @@ namespace RuinvestLogic.Logic
             {
                 success = false;
             }
-          
+
             return success;
         }
 

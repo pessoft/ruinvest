@@ -27,9 +27,11 @@ namespace RuinvestLogic.Logic
         /// </summary>
         /// <param name="phone">в формате начиная с 7, и без плюса</param>
         /// <param name="amount"></param>
-        public void SendMoney(string phone, double amount)
+        public bool SendMoney(string phone, double amount)
         {
             var success = qiwi.SendMoneyToWallet(phone, (decimal)amount).Result;
+
+            return success;
         }
 
         public double GetBalance()

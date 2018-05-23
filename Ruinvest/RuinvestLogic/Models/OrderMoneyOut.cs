@@ -13,6 +13,7 @@ namespace RuinvestLogic.Models
         public string NumberPurce { get; set; }
         public int UserId { get; set; }
         public double Amount { get; set; }
+        public double AmountOut { get; set; }
         public StatusOrder Status { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime? ExecutionDate { get; set; }
