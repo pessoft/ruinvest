@@ -59,8 +59,8 @@ function registrationUser() {
         Password: $("#reg-password").val()
     };
 
-    if (!data.FirstName || !date.SecondName
-        || !date.PhoneNumber || !date.Password) {
+    if (!data.FirstName || !data.SecondName
+        || !data.PhoneNumber || !data.Password) {
         showInfoMessage(MessageTemplate.NotFullDataRegistration, MessageType.Error)
 
         return;

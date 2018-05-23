@@ -10,6 +10,9 @@ namespace RuinvestLogic.Logic
 {
     public static class UtilsHelper
     {
+        private readonly static double MIN_AMOUNT = 50;
+        private readonly static double MAX_AMOUNT = 50000;
+
         public static bool IsValid(this RegistrationModel model)
         {
             return !string.IsNullOrEmpty(model.FirstName)
@@ -41,7 +44,7 @@ namespace RuinvestLogic.Logic
 
         public static bool IsValidAmount(double money)
         {
-            return money >= 100 && money <= 50000;
+            return money >= MIN_AMOUNT && money <= MAX_AMOUNT;
         }
 
         public static string GetSignatureMoneyIn(this OrderTopBalanceModel order)
