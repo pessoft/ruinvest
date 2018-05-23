@@ -365,5 +365,42 @@ namespace RuinvestLogic.Logic
 
             return deposits;
         }
+
+        public static List<Deposit> GetActiveDepost()
+        {
+            List<Deposit> deposits = new List<Deposit>();
+            try
+            {
+                using (DepositContext db = new DepositContext())
+                {
+                    deposits = db.Deposits?.Where(p => p.Status == StatusDeposit.Active).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                deposits = new List<Deposit>();
+            }
+
+            return deposits;
+        }
+
+        public static void MarkDepositFinished(List<int> ids)
+        {
+            try
+            {
+                using (DepositContext db = new DepositContext())
+                {
+                    var deposits = db.Deposits?.Where(p => ids.Contains(p.Id)).ToList();
+                    foreach (var deposit in deposits)
+                    {
+                        deposit.Status = StatusDeposit.Finished;
+                    }
+
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            { }
+        }
     }
 }

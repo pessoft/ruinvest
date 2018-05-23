@@ -1,4 +1,5 @@
-﻿using RuinvestLogic.Logic;
+﻿using NLog;
+using RuinvestLogic.Logic;
 using RuinvestLogic.Models;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,11 @@ using System.Web.Security;
 
 namespace Ruinvest.Controllers
 {
+    
+
     public class HomeController : Controller
     {
+        private Logger logger = LogManager.GetCurrentClassLogger();
         private readonly double MIN_AMOUNT = 50;
         private readonly double MAX_AMOUNT = 50000;
 
@@ -23,46 +27,53 @@ namespace Ruinvest.Controllers
         public JsonResult MoneyOut(MoneyOutModel moneyOutData)
         {
             var result = new JSONResult();
-            var userId = AuthWrapper.GetUserIdByLogin(User.Identity.Name);
-            var availableMoney = DataWrapper.AvailableMoneyByUserId(userId);
-
-            if (moneyOutData.IsValidAmount() && moneyOutData.Amount <= availableMoney)
+            try
             {
-                
-                var newOrder = new OrderMoneyOut()
-                {
-                    OrderId = Guid.NewGuid().ToString(),
-                    UserId = userId,
-                    Amount = moneyOutData.Amount,
-                    OrderDate = DateTime.Now,
-                    Status = StatusOrder.InProgress,
-                    TypePurce = moneyOutData.TypePurce
-                };
+                var userId = AuthWrapper.GetUserIdByLogin(User.Identity.Name);
+                var availableMoney = DataWrapper.AvailableMoneyByUserId(userId);
 
-                var isAddNewOrder = DataWrapper.AddNewOrderMoneyOut(newOrder);
-                var newBalanceUser = 0.0;
+                if (moneyOutData.IsValidAmount() && moneyOutData.Amount <= availableMoney)
+                {
 
-                if (isAddNewOrder)
-                {
-                    DataWrapper.TakeMoneyByUserId(userId, moneyOutData.Amount);
-                    newBalanceUser = DataWrapper.AvailableMoneyByUserId(userId);
-                }
-                
-                result.SetIsSuccess(newBalanceUser);
-            }
-            else
-            {
-                if (moneyOutData.IsValidAmount())
-                {
-                    result.SetNotSuccess(ErrorMessages.IncorrectAmount);
+                    var newOrder = new OrderMoneyOut()
+                    {
+                        OrderId = Guid.NewGuid().ToString(),
+                        UserId = userId,
+                        Amount = moneyOutData.Amount,
+                        OrderDate = DateTime.Now,
+                        Status = StatusOrder.InProgress,
+                        TypePurce = moneyOutData.TypePurce
+                    };
+
+                    var isAddNewOrder = DataWrapper.AddNewOrderMoneyOut(newOrder);
+                    var newBalanceUser = 0.0;
+
+                    if (isAddNewOrder)
+                    {
+                        DataWrapper.TakeMoneyByUserId(userId, moneyOutData.Amount);
+                        newBalanceUser = DataWrapper.AvailableMoneyByUserId(userId);
+                    }
+
+                    result.SetIsSuccess(newBalanceUser);
                 }
                 else
                 {
-                    result.SetNotSuccess(ErrorMessages.NotEnoughMoney);
+                    if (moneyOutData.IsValidAmount())
+                    {
+                        result.SetNotSuccess(ErrorMessages.IncorrectAmount);
+                    }
+                    else
+                    {
+                        result.SetNotSuccess(ErrorMessages.NotEnoughMoney);
+                    }
+
                 }
-
             }
-
+            catch (Exception ex)
+            {
+                result.SetNotSuccess(ErrorMessages.UnknownError);
+                logger.Error("Method MoneyOut: ", ex);
+            }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -71,24 +82,31 @@ namespace Ruinvest.Controllers
         public JsonResult MoneyIn(MoneyInModel amountData)
         {
             var result = new JSONResult();
-
-            if (amountData.IsValidAmount())
+            try
             {
-                var newOrder = new OrderTopBalanceModel()
+                if (amountData.IsValidAmount())
                 {
-                    OrderId = Guid.NewGuid().ToString(),
-                    UserId = AuthWrapper.GetUserIdByLogin(User.Identity.Name),
-                    Amount = amountData.Amount,
-                    OrderDate = DateTime.Now,
-                    Status = StatusOrder.InProgress
-                };
+                    var newOrder = new OrderTopBalanceModel()
+                    {
+                        OrderId = Guid.NewGuid().ToString(),
+                        UserId = AuthWrapper.GetUserIdByLogin(User.Identity.Name),
+                        Amount = amountData.Amount,
+                        OrderDate = DateTime.Now,
+                        Status = StatusOrder.InProgress
+                    };
 
-                DataWrapper.AddNewOrderTopBalance(newOrder);
-                result.SetIsSuccess(FreeKassa.GetUrlCash(newOrder));
+                    DataWrapper.AddNewOrderTopBalance(newOrder);
+                    result.SetIsSuccess(FreeKassa.GetUrlCash(newOrder));
+                }
+                else
+                {
+                    result.SetNotSuccess(ErrorMessages.IncorrectAmount);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                result.SetNotSuccess(ErrorMessages.IncorrectAmount);
+                result.SetNotSuccess(ErrorMessages.UnknownError);
+                logger.Error("Method MoneyIn: ", ex);
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -131,52 +149,60 @@ namespace Ruinvest.Controllers
         public JsonResult CreateDeposit(CreateDepositModel model)
         {
             var result = new JSONResult();
-            var userId = AuthWrapper.GetUserIdByLogin(User.Identity.Name);
-            var availableMoney = DataWrapper.AvailableMoneyByUserId(userId);
-
-            if ((availableMoney < model.DepositAmount) || (model.DepositAmount < MIN_AMOUNT || model.DepositAmount > MAX_AMOUNT))
+            try
             {
-                if (availableMoney < model.DepositAmount)
+                var userId = AuthWrapper.GetUserIdByLogin(User.Identity.Name);
+                var availableMoney = DataWrapper.AvailableMoneyByUserId(userId);
+
+                if ((availableMoney < model.DepositAmount) || (model.DepositAmount < MIN_AMOUNT || model.DepositAmount > MAX_AMOUNT))
                 {
-                    result.SetNotSuccess(ErrorMessages.NotEnoughMoney);
+                    if (availableMoney < model.DepositAmount)
+                    {
+                        result.SetNotSuccess(ErrorMessages.NotEnoughMoney);
+                    }
+                    else
+                    {
+                        result.SetNotSuccess(ErrorMessages.IncorrectAmount);
+                    }
                 }
                 else
                 {
-                    result.SetNotSuccess(ErrorMessages.IncorrectAmount);
+                    var currentDate = DateTime.Now;
+                    var percent = model.Rate == Rates.Month ? ProfitValue.HighPercent : ProfitValue.BasePercent;
+                    model.Rate = model.Rate == Rates.Unknown ? Rates.OneDay : model.Rate;
+
+                    var deposit = new Deposit()
+                    {
+                        UserId = userId,
+                        StartDate = currentDate,
+                        EndDate = currentDate.AddDays((int)model.Rate),
+                        Percent = percent,
+                        StartAmount = model.DepositAmount,
+                        InterimAmount = model.DepositAmount,
+                        EndAmount = model.DepositAmount + (model.DepositAmount * percent / 100.0) * (int)model.Rate,
+                        Status = StatusDeposit.Active
+                    };
+
+                    var successAddNewDeposit = DataWrapper.AddNewDeposit(deposit);
+                    var successTakeAmount = DataWrapper.TakeMoneyByUserId(userId, model.DepositAmount);
+                    var newBalanceUser = DataWrapper.AvailableMoneyByUserId(userId);
+
+                    if (successAddNewDeposit && successTakeAmount)
+                    {
+                        result.SetIsSuccess(newBalanceUser);
+                    }
+                    else
+                    {
+                        result.SetNotSuccess(ErrorMessages.UnknownError);
+                        
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                var currentDate = DateTime.Now;
-                var percent = model.Rate == Rates.Month ? ProfitValue.HighPercent : ProfitValue.BasePercent;
-                model.Rate = model.Rate == Rates.Unknown ? Rates.OneDay : model.Rate;
-
-                var deposit = new Deposit()
-                {
-                    UserId = userId,
-                    StartDate = currentDate,
-                    EndDate = currentDate.AddDays((int)model.Rate),
-                    Percent = percent,
-                    StartAmount = model.DepositAmount,
-                    InterimAmount = model.DepositAmount,
-                    EndAmount = model.DepositAmount + (model.DepositAmount * percent / 100.0) * (int)model.Rate,
-                    Status = StatusDeposit.Active
-                };
-
-                var successAddNewDeposit = DataWrapper.AddNewDeposit(deposit);
-                var successTakeAmount = DataWrapper.TakeMoneyByUserId(userId, model.DepositAmount);
-                var newBalanceUser = DataWrapper.AvailableMoneyByUserId(userId);
-
-                if (successAddNewDeposit && successTakeAmount)
-                {
-                    result.SetIsSuccess(newBalanceUser);
-                }
-                else
-                {
-                    result.SetNotSuccess(ErrorMessages.UnknownError);
-                }
+                result.SetNotSuccess(ErrorMessages.UnknownError);
+                logger.Error("Method CreateDeposit: ", ex);
             }
-
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -225,49 +251,57 @@ namespace Ruinvest.Controllers
         public JsonResult Registration(RegistrationModel model)
         {
             JSONResult accountResult = new JSONResult();
-            if (ModelState.IsValid && model.IsValid())
+            try
             {
-                if (!AuthWrapper.UserExist(model.PhoneNumber))
+                if (ModelState.IsValid && model.IsValid())
                 {
-                    var newUser = new User
+                    if (!AuthWrapper.UserExist(model.PhoneNumber))
                     {
-                        FirstName = model.FirstName,
-                        SecondName = model.SecondName,
-                        PhoneNumber = model.PhoneNumber,
-                        Password = model.Password,
-                        RegistrationDate = DateTime.Now
-                    };
+                        var newUser = new User
+                        {
+                            FirstName = model.FirstName,
+                            SecondName = model.SecondName,
+                            PhoneNumber = model.PhoneNumber,
+                            Password = model.Password,
+                            RegistrationDate = DateTime.Now
+                        };
 
-                    var isSaveUser = AuthWrapper.AddNewUser(newUser);
+                        var isSaveUser = AuthWrapper.AddNewUser(newUser);
 
-                    if (isSaveUser)
+                        if (isSaveUser)
+                        {
+                            var userId = AuthWrapper.GetUserIdByLogin(model.PhoneNumber);
+
+                            DataWrapper.AddCashUser(userId);
+                            FormsAuthentication.SetAuthCookie(model.PhoneNumber, true);
+                            accountResult.SetIsSuccess(GetUrlRedirect(model.PhoneNumber));
+                        }
+                        else
+                        {
+                            accountResult.SetNotSuccess(ErrorMessages.UnknownError);
+                        }
+                    }
+                    else
                     {
-                        var userId = AuthWrapper.GetUserIdByLogin(model.PhoneNumber);
-
-                        DataWrapper.AddCashUser(userId);
-                        FormsAuthentication.SetAuthCookie(model.PhoneNumber, true);
-                        accountResult.SetIsSuccess(GetUrlRedirect(model.PhoneNumber));
+                        accountResult.SetNotSuccess(ErrorMessages.ExistentPhoneNumber);
+                    }
+                }
+                else
+                {
+                    if (!model.IsValid())
+                    {
+                        accountResult.SetNotSuccess(ErrorMessages.NotFullDataRegistration);
                     }
                     else
                     {
                         accountResult.SetNotSuccess(ErrorMessages.UnknownError);
                     }
                 }
-                else
-                {
-                    accountResult.SetNotSuccess(ErrorMessages.ExistentPhoneNumber);
-                }
             }
-            else
+            catch (Exception ex)
             {
-                if (!model.IsValid())
-                {
-                    accountResult.SetNotSuccess(ErrorMessages.NotFullDataRegistration);
-                }
-                else
-                {
-                    accountResult.SetNotSuccess(ErrorMessages.UnknownError);
-                }
+                accountResult.SetNotSuccess(ErrorMessages.UnknownError);
+                logger.Error("Method Registration: ", ex);
             }
 
             return Json(accountResult, JsonRequestBehavior.AllowGet);
@@ -287,32 +321,39 @@ namespace Ruinvest.Controllers
         public JsonResult Login(LoginModel model)
         {
             JSONResult accountResult = new JSONResult();
-
-            if (ModelState.IsValid && model.IsValid())
+            try
             {
-                if (AuthWrapper.LoginUser(model.PhoneNumber, model.Password))
+                if (ModelState.IsValid && model.IsValid())
                 {
-                    FormsAuthentication.SetAuthCookie(model.PhoneNumber, true);
-                   
-                    accountResult.SetIsSuccess(GetUrlRedirect(model.PhoneNumber));
+                    if (AuthWrapper.LoginUser(model.PhoneNumber, model.Password))
+                    {
+                        FormsAuthentication.SetAuthCookie(model.PhoneNumber, true);
+
+                        accountResult.SetIsSuccess(GetUrlRedirect(model.PhoneNumber));
+                    }
+                    else
+                    {
+                        accountResult.SetNotSuccess(ErrorMessages.NotValidAuthData);
+                    }
                 }
                 else
                 {
-                    accountResult.SetNotSuccess(ErrorMessages.NotValidAuthData);
+                    if (!model.IsValid())
+                    {
+                        accountResult.SetNotSuccess(ErrorMessages.NotFullDataLogin);
+                    }
+                    else
+                    {
+                        accountResult.SetNotSuccess(ErrorMessages.UnknownError);
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                if (!model.IsValid())
-                {
-                    accountResult.SetNotSuccess(ErrorMessages.NotFullDataLogin);
-                }
-                else
-                {
-                    accountResult.SetNotSuccess(ErrorMessages.UnknownError);
-                }
-            }
+                accountResult.SetNotSuccess(ErrorMessages.UnknownError);
+                logger.Error("Method Login: ", ex);
 
+            }
             return Json(accountResult, JsonRequestBehavior.AllowGet);
         }
     }

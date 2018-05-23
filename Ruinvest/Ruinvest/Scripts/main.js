@@ -182,7 +182,7 @@ function addMoney() {
     if (amount < AmountInterval.Min || amount > AmountInterval.Max) {
         showInfoMessage(MessageTemplate.IncorrectedAmount, MessageType.Info, "input-moneyIn")
     } else {
-        let loader = new Loader("#addNewDeposit");
+        let loader = new Loader("#addMoney");
         loader.ToggleLoader();
 
         $.post('/Home/MoneyIn', { Amount: amount }, successCallBack(successAddMoney, loader));
