@@ -82,6 +82,7 @@ namespace Ruinvest.Controllers
         public JsonResult MoneyIn(MoneyInModel amountData)
         {
             var result = new JSONResult();
+
             try
             {
                 if (amountData.IsValidAmount())
@@ -96,6 +97,7 @@ namespace Ruinvest.Controllers
                     };
 
                     DataWrapper.AddNewOrderTopBalance(newOrder);
+                    var d = FreeKassa.GetUrlCash(newOrder);
                     result.SetIsSuccess(FreeKassa.GetUrlCash(newOrder));
                 }
                 else
