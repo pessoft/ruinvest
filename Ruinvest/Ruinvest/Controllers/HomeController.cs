@@ -114,26 +114,34 @@ namespace Ruinvest.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public void OrderNotify()
+        public string OrderNotify()
         {
-            string amountStr = Request.QueryString["AMOUNT"];
-            double amount = 0;
-            double.TryParse(amountStr, out amount);
-            string orderId = Request.QueryString["MERCHANT_ORDER_ID"];
-            string sign = Request.QueryString["SIGN"];
-            var order = DataWrapper.GetOrderTopBalanceByOrderId(orderId);
-
-            if (order.GetSignatureOrderNotify() == sign && order.Amount == amount)
+            var result = string.Empty;
+            try
             {
-                var message = $"Пополнение<br>" +
-                              $"Дата:{DateTime.Now.ToString()}<br>" +
-                              $"Пользователь:{order.UserId}<br>" +
-                              $"Сумма:{amount}<br>";
-                RuinvestUtils.VK.VKLogic.GetInstance().SendMessage(message);
-                DataWrapper.MarkOrderTopBalanceFinished(order.OrderId);
-                FreeKassa.SendToCard(order);
+                string amountStr = Request.QueryString["AMOUNT"];
+                double amount = 0;
+                double.TryParse(amountStr, out amount);
+                string orderId = Request.QueryString["MERCHANT_ORDER_ID"];
+                string sign = Request.QueryString["SIGN"];
+                var order = DataWrapper.GetOrderTopBalanceByOrderId(orderId);
+
+                if (order.GetSignatureOrderNotify() == sign && order.Amount == amount)
+                {
+                    var message = $"Пополнение<br>" +
+                                  $"Дата:{DateTime.Now.ToString()}<br>" +
+                                  $"Пользователь:{order.UserId}<br>" +
+                                  $"Сумма:{amount}<br>";
+                    RuinvestUtils.VK.VKLogic.GetInstance().SendMessage(message);
+                    DataWrapper.MarkOrderTopBalanceFinished(order.OrderId);
+                    //FreeKassa.SendToCard(order);
+
+                    result = "yes";
+                }
             }
+            catch(Exception e)
+            { }
+            return result;
         }
 
         [Authorize]
