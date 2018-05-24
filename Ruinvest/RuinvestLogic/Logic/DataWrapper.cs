@@ -209,6 +209,7 @@ namespace RuinvestLogic.Logic
                         order.Status = StatusOrder.Finished;
                         order.DatePayment = DateTime.Now;
                         db.SaveChanges();
+                        AddMoneyByUserId(order.UserId, order.Amount);
                         success = true;
                     }
                 }
