@@ -119,11 +119,11 @@ namespace Ruinvest.Controllers
             var result = string.Empty;
             try
             {
-                string amountStr = Request.QueryString["AMOUNT"];
+                string amountStr = "50";//Request.QueryString["AMOUNT"];
                 double amount = 0;
                 double.TryParse(amountStr, out amount);
-                string orderId = Request.QueryString["MERCHANT_ORDER_ID"];
-                string sign = Request.QueryString["SIGN"];
+                string orderId = "5de66cc3-2fca-47c7-924a-36869411ce40";// Request.QueryString["MERCHANT_ORDER_ID"];
+                string sign = "c604b4d409f2fbd9e041178e5f9ac5ea";// Request.QueryString["SIGN"];
                 var order = DataWrapper.GetOrderTopBalanceByOrderId(orderId);
 
                 if (order.GetSignatureOrderNotify() == sign && order.Amount == amount)
