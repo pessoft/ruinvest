@@ -19,6 +19,7 @@ $(document).ready(function () {
     $(window).trigger("load")//финт жопой
 });
 
+var isChangedCbxNoShowInfo = false;
 var AmountInterval = {
     Min: 50,
     Max: 50000
@@ -218,7 +219,8 @@ function moneyOutOrder() {
     };
 
     let numberPurce = $("#input-purce").val(); 
-    let amount = $(".money-in #input-amount").val();
+    let amount = $("#input-amount").val();
+    let typePurce = $(".money-out.active-item").attr("data-purce");
     let availableMoney = Number($("#availableMoney").attr("data-money"));
 
     if (!isNaN(amount)) {
@@ -239,7 +241,7 @@ function moneyOutOrder() {
         let loader = new Loader("#moneyOutOrder");
         loader.ToggleLoader();
 
-        $.post('/Home/MoneyOut', { NumberPurce: numberPurce, Amount: amount }, successCallBack(successMoneyOutOrder, loader));
+        $.post('/Home/MoneyOut', { NumberPurce: numberPurce, Amount: amount, TypePurce: typePurce }, successCallBack(successMoneyOutOrder, loader));
     } else {
         showInfoMessage(model.Message, MessageType.Error)
     }
@@ -252,8 +254,8 @@ function successMoneyOutOrder(dataResult, loader) {
         showInfoMessage(MessageTemplate.OrderMoneyOut, MessageType.Success)
         $("#availableMoney").attr("data-money", dataResult.Data)
 
-        $(".block-order-create").fadeOut(1000, function () {
-            $(".block-order-create").remove();
+        $(".block-order-create").fadeOut(2000, function () {
+            window.location.replace(dataResult.Data);
         });
     } else {
         showInfoMessage(dataResult.ErrMessage, MessageType.Error)
@@ -283,6 +285,16 @@ class Loader {
 
 function HideModalInformation() {
     $("#modal-information").slideToggle("slow");
+
+    if (isChangedCbxNoShowInfo) {
+        var data = {
+            Id: 0,
+            UserId: 0,
+            Type: 1,
+            IsShow: IsShowInfoMoneyOut
+        }
+        $.post('/Home/ChangeNotifySetting', data);
+    }
 }
 
 function toggleShowPassword() {
@@ -297,4 +309,9 @@ function toggleShowPassword() {
         e.addClass("glyphicon-eye-open");
         $("#reg-password").attr('type', 'password');
     }
+}
+
+function changedCbxNoShowInfo() {
+    IsShowInfoMoneyOut = !$("#show-info-cbx").is(":checked");
+    isChangedCbxNoShowInfo = true;
 }

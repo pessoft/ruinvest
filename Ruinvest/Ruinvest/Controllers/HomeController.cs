@@ -9,7 +9,7 @@ using System.Web.Security;
 
 namespace Ruinvest.Controllers
 {
-    
+
 
     public class HomeController : Controller
     {
@@ -42,7 +42,8 @@ namespace Ruinvest.Controllers
                         Amount = moneyOutData.Amount,
                         OrderDate = DateTime.Now,
                         Status = StatusOrder.InProgress,
-                        TypePurce = moneyOutData.TypePurce
+                        TypePurce = moneyOutData.TypePurce,
+                        NumberPurce = moneyOutData.NumberPurce
                     };
 
                     var isAddNewOrder = DataWrapper.AddNewOrderMoneyOut(newOrder);
@@ -52,9 +53,11 @@ namespace Ruinvest.Controllers
                     {
                         DataWrapper.TakeMoneyByUserId(userId, moneyOutData.Amount);
                         newBalanceUser = DataWrapper.AvailableMoneyByUserId(userId);
+
+
                     }
 
-                    result.SetIsSuccess(newBalanceUser);
+                    result.SetIsSuccess("/Home/MoneyOut");
                 }
                 else
                 {
@@ -139,7 +142,7 @@ namespace Ruinvest.Controllers
                     result = "yes";
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             { }
             return result;
         }
@@ -152,6 +155,28 @@ namespace Ruinvest.Controllers
             ViewBag.AvailableMoney = availableMoney;
 
             return View();
+        }
+
+
+
+        [HttpPost]
+        [Authorize]
+        public JsonResult ChangeNotifySetting(NotificationMessageModel model)
+        {
+            var result = new JSONResult();
+            try
+            {
+                var userId = AuthWrapper.GetUserIdByLogin(User.Identity.Name);
+                model.UserId = userId;
+
+                DataWrapper.AddOrUpdateNotification(model);
+            }
+            catch (Exception ex)
+            {
+                result.SetNotSuccess(ErrorMessages.UnknownError);
+                logger.Error("Method ChangeNotifySetting: ", ex);
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -204,7 +229,7 @@ namespace Ruinvest.Controllers
                     else
                     {
                         result.SetNotSuccess(ErrorMessages.UnknownError);
-                        
+
                     }
                 }
             }
@@ -241,11 +266,11 @@ namespace Ruinvest.Controllers
         {
             var userId = AuthWrapper.GetUserIdByLogin(User.Identity.Name);
 
-            ViewBag.AvailableMone = DataWrapper.AvailableMoneyByUserId(userId);
+            ViewBag.AvailableMoney = DataWrapper.AvailableMoneyByUserId(userId);
             ViewBag.HasOrder = DataWrapper.HasNonProcessedMoneyOut(userId);
             ViewBag.Orders = DataWrapper.GetMoneyOrdersByUserId(userId);
             ViewBag.PhoneNumber = User.Identity.Name;
-
+            ViewBag.IsShowInfoMoneyOut = DataWrapper.GetNotificationSettingByUserIdAndType(userId, TypeNotification.InfoMoneyOut).IsShow;
             return View();
         }
 

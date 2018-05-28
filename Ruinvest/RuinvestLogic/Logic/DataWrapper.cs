@@ -9,6 +9,66 @@ namespace RuinvestLogic.Logic
 {
     public class DataWrapper
     {
+
+        public static NotificationMessageModel GetNotificationSettingByUserIdAndType(int userId, TypeNotification type)
+        {
+            NotificationMessageModel data = null;
+            try
+            {
+                using (var db = new NotificationMessageContext())
+                {
+                    data = db.Notification
+                                 .Where(p => p.UserId == userId
+                                        && p.Type == type)
+                                 .FirstOrDefault();
+
+                    if (data == null)
+                    {
+                        data = new NotificationMessageModel() { IsShow = true, Type = type };
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                data = new NotificationMessageModel() { IsShow = true, Type = type };
+            }
+
+            return data;
+        }
+
+        public static bool AddOrUpdateNotification(NotificationMessageModel notifyData)
+        {
+            bool success = false;
+            try
+            {
+                using (var db = new NotificationMessageContext())
+                {
+                    var data = db.Notification
+                                 .Where(p => p.UserId == notifyData.UserId 
+                                        && p.Type == notifyData.Type)
+                                 .FirstOrDefault();
+
+                    if (data != null)
+                    {
+                        data.IsShow = notifyData.IsShow;
+                    }
+                    else
+                    {
+                        db.Notification.Add(notifyData);
+                    }
+                    success = true;
+
+                    db.SaveChanges();
+                    
+                }
+            }
+            catch (Exception e)
+            {
+                success = false;
+            }
+
+            return success;
+        }
         public static List<OrderMoneyOut> GetMoneyOrdersByUserId(int userId)
         {
             var resultData = new List<OrderMoneyOut>();
@@ -16,7 +76,10 @@ namespace RuinvestLogic.Logic
             {
                 using (var db = new OrderMoneyOutContext())
                 {
-                    resultData = db.Orders.Where(p => p.UserId == userId).ToList();
+                    resultData = db.Orders
+                                   .Where(p => p.UserId == userId)
+                                   .OrderByDescending(p => p.OrderDate)
+                                   .ToList();
                 }
             }
             catch (Exception e)
