@@ -202,6 +202,7 @@ body, html {
 .advantages-head {
     margin-bottom: 5%;
     font-size: 30px;
+    text-align: center;
 }
 
 .advantages .glyphicon {
@@ -531,12 +532,12 @@ body, html {
     align-items: center;
     width: 85%;
     flex-direction: column;
-    padding-bottom:2%;
+    padding-bottom: 2%;
 }
 
-.block-order-create .input-append {
-    width: 50%;
-}
+    .block-order-create .input-append {
+        width: 50%;
+    }
 
 .history-order-money-out {
     width: 100%;
@@ -559,7 +560,7 @@ input::-webkit-inner-spin-button {
 }
 
 #input-purce {
-    text-align:center;
+    text-align: center;
 }
 
 .money-in .text-input {
@@ -567,14 +568,14 @@ input::-webkit-inner-spin-button {
 }
 
 .margin-top15 {
-    margin-top:15%;
+    margin-top: 15%;
 }
 
 .modal-form {
     width: 100%;
     height: 100%;
     position: absolute;
-    top:0;
+    top: 0;
     z-index: 99999999;
     display: flex;
     justify-content: center;
@@ -642,7 +643,7 @@ input::-webkit-inner-spin-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    font: normal normal normal 18px/1.3em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans;
+    font: normal normal normal 16px/1.3em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans;
     color: #3d464e;
 }
 
@@ -681,6 +682,7 @@ input::-webkit-inner-spin-button {
     width: 100%;
     position: relative;
 }
+
     .password-control input {
         20% !important;
     }
@@ -696,16 +698,17 @@ input::-webkit-inner-spin-button {
 i.glyphicon-remove:hover {
     color: rgba(219,83,59,1);
 }
+
 .cbx-info {
     font-weight: 400;
     letter-spacing: .4px;
     font-family: HelveticaNeueW0-45Ligh,Helvetica,Arial,sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.5;
     padding-left: 15px;
-    display:flex;
-    justify-content:center;
-    align-content:center;
+    display: flex;
+    justify-content: center;
+    align-content: center;
 }
 
     .cbx-info label {
@@ -713,9 +716,79 @@ i.glyphicon-remove:hover {
         color: #3d464e;
         margin-left: 2px;
     }
+
     .cbx-info input {
         transform: scale(1.1);
         margin: auto;
         display: flex;
         align-self: center;
+        cursor: pointer;
     }
+
+@media (max-width: 1280px) {
+    .menu {
+        font-size: 17px !important;
+    }
+
+    .input-append {
+        font-size: 12px !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    .menu {
+        font-size: 14px !important;
+    }
+
+    .input-append {
+        font-size: 10px !important;
+    }
+
+    .advantages-head {
+        font-size: 25px !important;
+    }
+
+    .advantages li {
+        font-size: 18px !important;
+    }
+
+    #user-panel {
+        font-size: 12px !important;
+    }
+
+    .password-eye,
+    .user-panel button {
+        font-size: 15px !important;
+    }
+
+    .deposit {
+        font-size: 50px !important;
+        height: 220px;
+    }
+
+    .description-profit,
+    .money-in .text-inpu {
+        font-size: 15px !important;
+    }
+
+    .modal-content-container {
+        font-size: 13px !important;
+    }
+
+    .modal-ok {
+        width: 85px !important;
+        height: 30px !important;
+    }
+
+    .cbx-info {
+        font-size: 10px !important
+    }
+
+        .cbx-info input {
+            transform: scale(0.9)
+        }
+
+    .label-deposit, .label-money-in {
+        font-size:65px !important;
+    }
+}
