@@ -594,7 +594,7 @@ input::-webkit-inner-spin-button {
     position: absolute;
     left: 33%;
     width: 35%;
-    height: 35%;
+    height: 45%;
     background: rgba(250,250,250,1);
     display: flex;
     justify-content: center;
@@ -608,7 +608,7 @@ input::-webkit-inner-spin-button {
 
 .modal-title-container {
     width: 100%;
-    height: 22%;
+    height: 20%;
     display: flex;
     position: relative;
     align-self: flex-start;
@@ -616,7 +616,7 @@ input::-webkit-inner-spin-button {
     align-items: center;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
-    background: linear-gradient(45deg, #c55f5f, #C5DDE8);
+    background: linear-gradient(45deg, #313131, #C5DDE8);
     flex-direction: row;
     font: normal normal normal 20px/1.4em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans;
     color: white;
@@ -639,17 +639,17 @@ input::-webkit-inner-spin-button {
 
 .modal-content-container {
     width: 100%;
-    height: 70%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font: normal normal normal 16px/1.3em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans;
+    font: normal normal normal 16px/1.2em impact,impact-w01-2010,impact-w02-2010,impact-w10-2010,sans;
     color: #3d464e;
 }
 
 .modal-footer-container {
     width: 100%;
-    height: 22%;
+    height: 20%;
     display: flex;
     align-self: flex-end;
     align-content: center;
@@ -667,7 +667,7 @@ input::-webkit-inner-spin-button {
     text-align: center;
     justify-content: center;
     margin-right: 3%;
-    background: linear-gradient(45deg, #c55f5f, #C5DDE8);
+    background: linear-gradient(45deg, #3191d4, #C5DDE8);
     color: white;
     border: none;
 }

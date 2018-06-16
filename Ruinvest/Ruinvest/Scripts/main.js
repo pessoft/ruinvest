@@ -15,13 +15,13 @@ $(document).ready(function () {
         }
     });
     autoScroll();
-
+    $("#reg-phone-number, #log-phone-number, #input-purce").mask("+7(999) 999-9999");
     $(window).trigger("load")//финт жопой
 });
 
 var isChangedCbxNoShowInfo = false;
 var AmountInterval = {
-    Min: 50,
+    Min: 350,
     Max: 50000
 }
 
@@ -56,7 +56,7 @@ function registrationUser() {
     var data = {
         FirstName: $("#reg-first-name").val(),
         SecondName: $("#reg-second-name").val(),
-        PhoneNumber: $("#reg-phone-number").val(),
+        PhoneNumber: $("#reg-phone-number").val().replace(/[^+0-9]/gim, ''),
         Password: $("#reg-password").val()
     };
 
@@ -80,7 +80,7 @@ function successCallBack(func, loader) {
 
 function loginUser() {
     var data = {
-        PhoneNumber: $("#log-phone-number").val(),
+        PhoneNumber: $("#log-phone-number").val().replace(/[^+0-9]/gim, ''),
         Password: $("#log-password").val()
     };
 
@@ -218,7 +218,7 @@ function moneyOutOrder() {
         Message: ""
     };
 
-    let numberPurce = $("#input-purce").val(); 
+    let numberPurce = $("#input-purce").val().replace(/[^+0-9]/gim, ''); 
     let amount = $("#input-amount").val();
     let typePurce = $(".money-out.active-item").attr("data-purce");
     let availableMoney = Number($("#availableMoney").attr("data-money"));

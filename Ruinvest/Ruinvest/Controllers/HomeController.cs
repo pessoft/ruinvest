@@ -31,33 +31,44 @@ namespace Ruinvest.Controllers
             {
                 var userId = AuthWrapper.GetUserIdByLogin(User.Identity.Name);
                 var availableMoney = DataWrapper.AvailableMoneyByUserId(userId);
-
+                var currentDate = DateTime.Now;
+                var date1 = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, 9, 0, 0);
+                var date2 = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day, 22, 0, 0);
                 if (moneyOutData.IsValidAmount() && moneyOutData.Amount <= availableMoney)
                 {
-
-                    var newOrder = new OrderMoneyOut()
+                    if (currentDate < date1 || currentDate > date2 
+                        || currentDate.DayOfWeek == DayOfWeek.Saturday
+                        || currentDate.DayOfWeek == DayOfWeek.Sunday)
                     {
-                        OrderId = Guid.NewGuid().ToString(),
-                        UserId = userId,
-                        Amount = moneyOutData.Amount,
-                        OrderDate = DateTime.Now,
-                        Status = StatusOrder.InProgress,
-                        TypePurce = moneyOutData.TypePurce,
-                        NumberPurce = moneyOutData.NumberPurce
-                    };
-
-                    var isAddNewOrder = DataWrapper.AddNewOrderMoneyOut(newOrder);
-                    var newBalanceUser = 0.0;
-
-                    if (isAddNewOrder)
-                    {
-                        DataWrapper.TakeMoneyByUserId(userId, moneyOutData.Amount);
-                        newBalanceUser = DataWrapper.AvailableMoneyByUserId(userId);
-
-
+                        result.SetNotSuccess(ErrorMessages.IncorrectDate);
                     }
+                    else
+                    {
 
-                    result.SetIsSuccess("/Home/MoneyOut");
+                        var newOrder = new OrderMoneyOut()
+                        {
+                            OrderId = Guid.NewGuid().ToString(),
+                            UserId = userId,
+                            Amount = moneyOutData.Amount,
+                            OrderDate = DateTime.Now,
+                            Status = StatusOrder.InProgress,
+                            TypePurce = moneyOutData.TypePurce,
+                            NumberPurce = moneyOutData.NumberPurce
+                        };
+
+                        var isAddNewOrder = DataWrapper.AddNewOrderMoneyOut(newOrder);
+                        var newBalanceUser = 0.0;
+
+                        if (isAddNewOrder)
+                        {
+                            DataWrapper.TakeMoneyByUserId(userId, moneyOutData.Amount);
+                            newBalanceUser = DataWrapper.AvailableMoneyByUserId(userId);
+
+
+                        }
+
+                        result.SetIsSuccess("/Home/MoneyOut");
+                    }
                 }
                 else
                 {

@@ -10,7 +10,7 @@ namespace RuinvestLogic.Logic
 {
     public static class UtilsHelper
     {
-        private readonly static double MIN_AMOUNT = 50;
+        private readonly static double MIN_AMOUNT = 350;
         private readonly static double MAX_AMOUNT = 50000;
 
         public static bool IsValid(this RegistrationModel model)

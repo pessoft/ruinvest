@@ -16,5 +16,7 @@ namespace RuinvestLogic.Models
 
         public static readonly string NotFullDataRegistration = "Указаны не все данные для регистрации";
         public static readonly string NotFullDataLogin = "Указаны не все данные для входа";
+
+        public static readonly string IncorrectDate = "Создать заявку можна пн-пт с 9.00-22.00";
     }
 }
